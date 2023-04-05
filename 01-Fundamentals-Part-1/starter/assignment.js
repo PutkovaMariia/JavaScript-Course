@@ -8,7 +8,7 @@ console.log(typeof isIsland);
 console.log(typeof population);
 console.log(typeof country);
 
-const language = 'Ukrainian';
+const language = 'ukrainian';
 console.log(language);
 
 let halfPopulation = population / 2;
@@ -72,3 +72,5 @@ switch (language) {
     default:
         console.log('Great language too :)');
 }
+
+console.log(`Ukraine's population is ${population > 33 ? 'above' : 'below'} average.`);
