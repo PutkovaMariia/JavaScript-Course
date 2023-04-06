@@ -30,7 +30,7 @@ const calcAge2 = function (birthYear){
 const age2 = calcAge2(1994);
 console.log(age1, age2);
  */
-
+/*
 const calcAge3 = birthYear => 2023 - birthYear;
 const age3 = calcAge3(1994);
 console.log(age3);
@@ -43,4 +43,14 @@ const yearsUntilRetirement = (birthYear, firstName) => {
 }
 console.log(yearsUntilRetirement(1994, 'Mariia'));
 console.log(yearsUntilRetirement(1992, 'Roman'));
+*/
 
+function cutFruitPieces (fruit){
+    return fruit * 3;
+}
+function fruitProcessor(apples, oranges) {
+    const applePieces = cutFruitPieces(apples);
+    const orangePieces = cutFruitPieces(oranges);
+    return `Juice with ${applePieces} pieces of apple and ${orangePieces} pieces of orange.`;
+}
+console.log(fruitProcessor(2, 3));

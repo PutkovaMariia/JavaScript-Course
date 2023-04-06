@@ -23,11 +23,18 @@ const percentageOfWorld2 = function(population){
 }
 const perChina2 = percentageOfWorld2(1441).toFixed(2);
 const perGreece2 = percentageOfWorld2(10).toFixed(2);
-const perPoland2 = percentageOfWorld2(30).toFixed(2);
+const perPoland2 = percentageOfWorld2(38).toFixed(2);
 console.log('percentageOfWorld2', perChina2, perGreece2, perPoland2);
 
 const percentageOfWorld3 = (population) => (population / 7900) * 100;
 const perChina3 = percentageOfWorld3(1441).toFixed(2);
 const perGreece3 = percentageOfWorld3(10).toFixed(2);
-const perPoland3 = percentageOfWorld3(30).toFixed(2);
+const perPoland3 = percentageOfWorld3(38).toFixed(2);
 console.log('percentageOfWorld3', perChina3, perGreece3, perPoland3);
+
+function describePopulation(country, population){
+    return `${country} has ${population} million people, which is about ${percentageOfWorld3(population).toFixed(1)}% of the world.`;
+}
+console.log(describePopulation('China', 1441));
+console.log(describePopulation('Poland', 38));
+console.log(describePopulation('Greece', 10));
