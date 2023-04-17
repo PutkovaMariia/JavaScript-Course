@@ -48,3 +48,41 @@ console.log(4 === populations.length);
 const percentages =
     [percentageOfWorld1(populations[0]).toFixed(2), percentageOfWorld1(populations[1]).toFixed(2), percentageOfWorld1(populations[2]).toFixed(2), percentageOfWorld1(populations[3]).toFixed(2)];
 console.log(percentages);
+
+const ukraineNeighbours = ['Belarus', 'Hungary', 'Moldova', 'Poland', 'Romania', 'srana rusnya', 'Slovakia'];
+ukraineNeighbours.push('Utopia');
+console.log(ukraineNeighbours);
+ukraineNeighbours.pop();
+console.log(ukraineNeighbours);
+
+if (!ukraineNeighbours.includes('Germany')){
+    console.log('Probably not a central European country');
+}
+
+ukraineNeighbours[ukraineNeighbours.indexOf('srana rusnya')] = 'kasapstan';
+console.log(ukraineNeighbours);
+
+const myCountry = {
+    country: 'Ukraine',
+    capital: 'Kyiv',
+    language: 'ukrainian',
+    population: 40,
+    neighbours: ['Belarus', 'Hungary', 'Moldova', 'Poland', 'Romania', 'srana rusnya', 'Slovakia'],
+    describe: function () {
+        return `${this.country} has ${this.population} million ${this.language}-speaking people, ${this.neighbours.length - 1} neighbouring countries (plus one terrorist country) and a capital called ${this.capital}.`
+    },
+    checkIsIsland: function () {
+        return this.neighbours.length === 0 ? this.isIsland = true : this.isIsland = false;
+    }
+};
+
+//console.log(`${myCountry.country} has ${myCountry.population} million ${myCountry.language}-speaking people, ${myCountry.neighbours.length - 1} neighbouring countries (plus one terrorist country) and a capital called ${myCountry.capital}.`);
+
+myCountry.population += 2;
+console.log(myCountry.population);
+myCountry['population'] -= 2;
+console.log(myCountry.population);
+
+console.log(myCountry);
+console.log(myCountry.describe());
+console.log()
