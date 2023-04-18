@@ -55,7 +55,7 @@ console.log(ukraineNeighbours);
 ukraineNeighbours.pop();
 console.log(ukraineNeighbours);
 
-if (!ukraineNeighbours.includes('Germany')){
+if (!ukraineNeighbours.includes('Germany')) {
     console.log('Probably not a central European country');
 }
 
@@ -72,10 +72,9 @@ const myCountry = {
         return `${this.country} has ${this.population} million ${this.language}-speaking people, ${this.neighbours.length - 1} neighbouring countries (plus one terrorist country) and a capital called ${this.capital}.`
     },
     checkIsIsland: function () {
-        return this.neighbours.length === 0 ? this.isIsland = true : this.isIsland = false;
+        return this.isIsland = this.neighbours.length === 0 ? true : false;
     }
 };
-
 //console.log(`${myCountry.country} has ${myCountry.population} million ${myCountry.language}-speaking people, ${myCountry.neighbours.length - 1} neighbouring countries (plus one terrorist country) and a capital called ${myCountry.capital}.`);
 
 myCountry.population += 2;
@@ -85,4 +84,8 @@ console.log(myCountry.population);
 
 console.log(myCountry);
 console.log(myCountry.describe());
-console.log()
+console.log(myCountry.checkIsIsland());
+
+for (let voter = 1; voter <= 50; voter++) {
+    console.log(`Voter number ${voter} is currently voting`);
+}
