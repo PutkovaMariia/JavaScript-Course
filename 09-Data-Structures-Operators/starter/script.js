@@ -34,6 +34,10 @@ const restaurant = {
     orderDelivery: function ({time = '20:00', adress, mainIndex = 0, starterIndex = 1}) {
         console.log(`Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${adress} at ${time}`);
     },
+
+    orderPasta: function (ing1, ing2, ing3){
+        console.log(`Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}😘`)
+    }
 };
 
 restaurant.orderDelivery({
@@ -69,6 +73,49 @@ console.log(a,b);//23,7
 //nested objects
 const {fri: {open: o, close: c}} = openingHours;
 console.log(o, c);//11,23
+///////////////////////////////
+
+const arr = [7,8,9];
+const badNewArr = [1,2,arr[0],arr[1],arr[2]];
+console.log(badNewArr);
+//spread operator (works only with iterables)
+//iterables: arrays, strings, maps, sets. NOT the objects
+const newArr = [1,2,...arr];
+console.log(newArr);//[ 1, 2, 7, 8, 9 ]
+console.log(...newArr);//1 2 7 8 9
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+console.log(newMenu);//[ 'Pizza', 'Pasta', 'Risotto', 'Gnocci' ]
+
+//copy array
+const mainMenuCopy = [...restaurant.mainMenu];
+
+//join 2 or more arrays
+const menuMerged = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(menuMerged);
+
+const str = 'Masha';
+const letters = [...str, '', 'P.'];
+console.log(letters);//'M', 'a', 's', 'h', 'a', '', 'P.'
+console.log(...str);//M a s h a
+
+/*
+//real-world example
+const ingredients = [prompt('Let\'s make pasta! What is the first ingredient?'),
+    prompt('What is the second ingredient?'),
+    prompt('The third ingredient?')];
+console.log(ingredients);//['rum', 'cola', 'ice']
+restaurant.orderPasta(...ingredients);//Here is your delicious pasta with rum, cola and ice😘
+*/
+
+//objects
+const newRestaurant = {foundedIn: 2025, ...restaurant, founder: 'Mariia'};
+console.log(newRestaurant);
+
+const restaurantCopy = {...restaurant};
+restaurantCopy.name = 'Dubstep house';
+console.log(restaurant.name);
+console.log(restaurantCopy.name);
 
 /*
 const arr = [2, 3, 4];
