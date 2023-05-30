@@ -44,7 +44,36 @@ const restaurant = {
         console.log(otherIngredients);
     }
 };
+/*
+const rest1 = {
+    name:'Capri',
+    //numGuests: 20,
+    numGuests: 0,
+};
+const rest2 = {
+    name:'La Piazza',
+    owner: 'Giovanni',
+};
 
+//OR assignment operator
+// rest1.numGuests = rest1.numGuests || 10;
+// rest2.numGuests = rest2.numGuests || 10;
+// rest1.numGuests ||= 10;
+// rest2.numGuests ||= 10;
+//nullish assignment operator
+rest1.numGuests ??= 10;
+rest2.numGuests ??= 10;
+
+//AND assignment operator (assign a value if it's currently truthy)
+// rest1.owner = rest1.owner && '<ANONYMOUS>';
+// rest2.owner = rest2.owner && '<ANONYMOUS>';
+rest1.owner &&= '<ANONYMOUS>';
+rest2.owner &&= '<ANONYMOUS>';
+
+console.log(rest1);
+console.log(rest2);
+*/
+/*
 //the nullish coalescing operator (??)
 //if value is 0 (fallacy value)
 restaurant.numGuests = 0;
@@ -54,7 +83,7 @@ console.log(guests);
 //nullish: null and undefined (not 0 or '')
 const guestsCorrect = restaurant.numGuests ?? 10;
 console.log(guestsCorrect);
-
+*/
 /*
 //&& and||
 
