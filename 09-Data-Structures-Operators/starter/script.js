@@ -35,11 +35,89 @@ const restaurant = {
         console.log(`Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${adress} at ${time}`);
     },
 
-    orderPasta: function (ing1, ing2, ing3){
+    orderPasta: function (ing1, ing2, ing3) {
         console.log(`Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}😘`)
+    },
+
+    orderPizza: function (mainIngredient, ...otherIngredients) {
+        console.log(mainIngredient);
+        console.log(otherIngredients);
     }
 };
 
+//the nullish coalescing operator (??)
+//if value is 0 (fallacy value)
+restaurant.numGuests = 0;
+const guests = restaurant.numGuests || 10;
+console.log(guests);
+
+//nullish: null and undefined (not 0 or '')
+const guestsCorrect = restaurant.numGuests ?? 10;
+console.log(guestsCorrect);
+
+/*
+//&& and||
+
+//use any data type, return any data type, short-circuiting
+console.log(3 || 'Mariia');//3
+console.log('' || 'Mariia');//Mariia
+console.log(true || 0);//true
+console.log(undefined || null);//null
+
+console.log(undefined || 0 || '' || 'Hello' || 23 || null);//Hello
+
+restaurant.numGuests = 23;
+const guests1 = restaurant.numGuests ? restaurant.numGuests :10;//10
+console.log(guests1);
+
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+
+console.log('-----------and-----------')
+
+console.log(0 && 'Mariia');//0
+console.log(7 && 'Mariia');//Mariia
+console.log('Hello' && 23 && null && 'Mariia');//null
+
+if (restaurant.orderPizza) {
+    restaurant.orderPizza('cheese', 'onion');
+}
+
+restaurant.orderPizza && restaurant.orderPizza('beef');
+*/
+/*
+//1.destructuring
+
+//SPREAD, because on Right side of =
+const arr = [1,2,...[3,4]];
+
+//REST, because on left side of =
+const [a,b,...others] = [1,2,3,4,5];
+console.log(a,b,others);//1 2 [ 3, 4, 5 ]
+
+const [pizza, , risotto, ...otherFood] = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(pizza, risotto, otherFood);//Pizza Risotto [ 'Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad' ]
+
+//objects
+const {sat, ...weekdays} = restaurant.openingHours;
+console.log(weekdays);//{ thu: { open: 12, close: 22 }, fri: { open: 11, close: 23 } }
+
+//2.functions
+
+const add = function (...num) {
+    let sum = 0;
+    for (let i=0; i<num.length; i++) sum += num[i];
+    console.log(sum);
+}
+add(2,3);//5
+add(5,3,7,2);//17
+
+const x = [23,5,7];
+add(...x);//35
+
+restaurant.orderPizza('tomato', 'dough', 'banana');//tomato [ 'dough', 'banana' ]
+*/
+/*
 restaurant.orderDelivery({
     time: '22:30',
     adress: 'Edwarda Stachury 1',
@@ -99,14 +177,12 @@ const letters = [...str, '', 'P.'];
 console.log(letters);//'M', 'a', 's', 'h', 'a', '', 'P.'
 console.log(...str);//M a s h a
 
-/*
 //real-world example
 const ingredients = [prompt('Let\'s make pasta! What is the first ingredient?'),
     prompt('What is the second ingredient?'),
     prompt('The third ingredient?')];
 console.log(ingredients);//['rum', 'cola', 'ice']
 restaurant.orderPasta(...ingredients);//Here is your delicious pasta with rum, cola and ice😘
-*/
 
 //objects
 const newRestaurant = {foundedIn: 2025, ...restaurant, founder: 'Mariia'};
@@ -114,8 +190,9 @@ console.log(newRestaurant);
 
 const restaurantCopy = {...restaurant};
 restaurantCopy.name = 'Dubstep house';
-console.log(restaurant.name);
-console.log(restaurantCopy.name);
+console.log(restaurant);
+console.log(restaurantCopy);
+*/
 
 /*
 const arr = [2, 3, 4];
