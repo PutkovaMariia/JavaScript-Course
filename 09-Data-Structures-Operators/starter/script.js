@@ -9,7 +9,7 @@ const openingHours = {
         open: 12, close: 22,
     }, [weekdays[4]]: {
         open: 11, close: 23,
-    }, [`day-${2+4}`]: {
+    }, sat: {
         open: 0, // Open 24 hours
         close: 24,
     },
@@ -23,6 +23,8 @@ const restaurant = {
     mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
     /////////////////////
+
+
     //ES6 enhanced object literals
     openingHours,
 
@@ -43,6 +45,55 @@ const restaurant = {
         console.log(otherIngredients);
     }
 };
+////////////////
+/*
+//property names
+const properties = Object.keys(openingHours);
+console.log(properties);
+
+let openStr = `We are open on ${properties.length} days: `;
+
+for (const day of properties){
+    openStr += `${day}, `;
+}
+console.log(openStr);
+
+//property values
+const values = Object.values(openingHours);
+console.log(values);
+
+//entire object
+const entries = Object.entries(openingHours);
+//console.log(entries);
+
+for (const [key, {open, close}] of entries){
+    console.log(`On ${key} we open at ${open} and close at ${close}`);
+}
+*/
+/*
+//without optional chaining
+if (restaurant.openingHours.mon){
+    console.log(restaurant.openingHours.mon.open)
+}
+
+//with optional chaining (will work only if all before ? exists)
+console.log(restaurant.openingHours.mon?.open);
+
+//example
+const days =['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+for (const day of days){
+    const open = restaurant.openingHours[day]?.open ?? 'closed';
+    console.log(`On ${day}, we open at ${open}`);
+}
+
+//methods
+console.log(restaurant.order?.(0,1) ?? 'method doesn`t exist');
+console.log(restaurant.orderRisotto?.(0,1) ?? 'method doesn`t exist');
+
+//arrays
+const users = [{name: 'Mariia', email: 'a@gmail.com'}];
+console.log(users[0]?.name ?? 'user array empty');
+*/
 /*
 //for-of loop
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
