@@ -3,7 +3,7 @@
 // Data needed for a later exercise
 const flights = '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
-const weekdays =['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const openingHours = {
     [weekdays[3]]: {
         open: 12, close: 22,
@@ -46,6 +46,30 @@ const restaurant = {
     }
 };
 ////////////////
+/*
+//SETS
+const ordersSet = new Set(['Pasta', 'Pizza', 'Pizza', 'Risotto', 'Pasta', 'Pizza']);
+console.log(ordersSet);//Set(3) { 'Pasta', 'Pizza', 'Risotto' }
+
+console.log(new Set('Mariia'));//Set(4) { 'M', 'a', 'r', 'i' }
+
+console.log(ordersSet.size);//3
+console.log(ordersSet.has('Pizza'));//true
+console.log(ordersSet.has('Bread'));//false
+ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread');
+console.log(ordersSet);//Set(4) { 'Pasta', 'Pizza', 'Risotto', 'Garlic Bread' }
+ordersSet.delete('Risotto');
+console.log(ordersSet);//Set(3) { 'Pasta', 'Pizza', 'Garlic Bread' }
+for (const order of ordersSet) console.log(order);//Pasta Pizza Garlic Bread
+
+//example
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+const staffSet = [...new Set(staff)];
+console.log(staffSet);//[ 'Waiter', 'Chef', 'Manager' ]
+console.log(new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size);//3
+console.log(new Set('mariiaputkova').size);//10
+*/
 /*
 //property names
 const properties = Object.keys(openingHours);
