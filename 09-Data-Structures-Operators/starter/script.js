@@ -47,6 +47,87 @@ const restaurant = {
 };
 ////////////////
 /*
+//Maps: Fundamentals
+const rest = new Map();
+rest.set('name', 'Buffet');
+rest.set(1, 'Kharkiv');
+rest.set(2, 'Dnipro');
+console.log(rest);//Map(3) { 'name' => 'Buffet', 1 => 'Kharkiv', 2 => 'Dnipro' }
+
+rest.set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+    .set('open', 11)
+    .set('close', 23)
+    .set(true, 'we are open')
+    .set(false, 'we are closed');
+
+console.log(rest.get('name'));//Buffet
+console.log(rest.get(true));//we are open
+
+const time = 8;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));//we are closed
+
+console.log(rest.has('categories'));//true
+
+rest.delete(2);
+console.log(rest);//no key 2 or Dnipro in console
+
+console.log(rest.size);//7
+
+// rest.clear();
+// console.log(rest);//Map(0) {}
+
+rest.set([1, 2], 'Test');
+console.log(rest);//"[ 1, 2 ] => 'Test'" added
+
+console.log(rest.get([1, 2]));//undefined, because it is not the same array
+
+// rest.set(document.querySelector('h1'), 'Heading');
+// console.log(rest);
+
+//Maps: Iteration
+const question = new Map([
+    ['question', 'what is the best programming language in the world?'],
+    [1, 'c'],
+    [2, 'java'],
+    [3, 'javascript'],
+    ['correct', 3],
+    [true, 'correct🎉'],
+    [false, 'try again😈'],
+]);
+console.log(question);
+
+//convert object to map
+console.log(Object.entries(openingHours));
+const hoursMap = new Map(Object.entries(openingHours));
+console.log(hoursMap);
+
+//iteration
+console.log(question.get('question'));
+for (const [key, value] of question) {
+    if (typeof key === 'number') {
+        console.log(`answer ${key}: ${value}`);
+    }
+}
+//const answer = Number(prompt('your answer'));
+const answer = 3;
+//console.log(answer);
+
+// if (answer === question.get('correct')) {
+//     console.log(question.get(true))
+// } else {
+//     console.log(question.get(false));
+// }
+
+//now the same but easier
+console.log(question.get(question.get('correct') === answer));
+
+//convert map to array
+console.log([...question]);
+//console.log(question.entries());
+console.log(...question.keys());
+console.log(...question.values());
+*/
+/*
 //SETS
 const ordersSet = new Set(['Pasta', 'Pizza', 'Pizza', 'Risotto', 'Pasta', 'Pizza']);
 console.log(ordersSet);//Set(3) { 'Pasta', 'Pizza', 'Risotto' }
