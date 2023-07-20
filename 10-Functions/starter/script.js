@@ -47,7 +47,7 @@ const newPassport = function (person){
 newPassport(mariia);
 checkIn(flight, mariia);//Wrong passport
  */
-
+/*
 const oneWord = function (str){
     return str.replace(/ /g, '').toLowerCase();
 };
@@ -73,3 +73,17 @@ const high5 = function (){
 //document.body.addEventListener('click', high5);
 
 ['Jonas', 'Martha', 'Adam'].forEach(high5);//🖐 (3 separate console.logs)
+*/
+
+const greet = function (greeting){
+    return function (name){
+        console.log(`${greeting} ${name}`);
+    }
+};
+const greeterHey = greet('Hey');
+greeterHey('Mariia');//Hey Mariia
+
+greet('Hello')('Mariia');//Hello Mariia
+
+const greet2 = greeting => name => console.log(`${greeting} ${name}`);
+greet2('Hi')('Roman');//Hi Roman
