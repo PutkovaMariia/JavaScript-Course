@@ -127,3 +127,42 @@ book.apply(eurowings, flightData);//George booked a seat on Eurowings flight EW5
 console.log(eurowings);
 
 book.call(eurowings, ...flightData);
+
+//bind method
+const bookEw = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+
+bookEw(45, 'Miley');//Miley booked a seat on Eurowings flight EW45
+console.log(eurowings);
+
+bookLH(98, 'Leo');//Leo booked a seat on Lufthansa flight LH98
+console.log(lufthansa);
+
+const bookEw23 = book.bind(eurowings, 23);//making pre-set flight number
+bookEw23('Ursula');//Ursula booked a seat on Eurowings flight EW23
+bookEw23('Tony');//Tony booked a seat on Eurowings flight EW23
+
+//with event listeners
+lufthansa.planes = 300;
+lufthansa.buyPlane = function (){
+    console.log(this);
+    this.planes++;
+    console.log(this.planes);
+};
+//document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa));//bind we need to define 'this'
+
+//partial application
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1,200));//220
+
+const addVAT = addTax.bind(null, 0.23);//the same as addVAT = value => value + value * 0.23;
+
+console.log(addVAT(100));//123
+
+const addTaxRate = function (rate){
+    return function (value){
+        return value + value * rate;
+    }
+}
+const addVAT2 = addTaxRate(0.23);
+console.log(addVAT2(100));//123
