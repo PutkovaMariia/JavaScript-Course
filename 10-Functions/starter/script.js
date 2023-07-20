@@ -74,7 +74,7 @@ const high5 = function (){
 
 ['Jonas', 'Martha', 'Adam'].forEach(high5);//🖐 (3 separate console.logs)
 */
-
+/*
 const greet = function (greeting){
     return function (name){
         console.log(`${greeting} ${name}`);
@@ -87,3 +87,43 @@ greet('Hello')('Mariia');//Hello Mariia
 
 const greet2 = greeting => name => console.log(`${greeting} ${name}`);
 greet2('Hi')('Roman');//Hi Roman
+ */
+
+const lufthansa = {
+    airline: 'Lufthansa',
+    iataCode: 'LH',
+    bookings: [],
+    book(flightNum, name){//new syntax of creating functions inside the object
+        console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
+        this.bookings.push({flight: `${this.iataCode}${flightNum}`, name});
+    },
+};
+
+lufthansa.book(239, 'Roman');//Roman booked a seat on Lufthansa flight LH239
+lufthansa.book(635, 'Joe');//Joe booked a seat on Lufthansa flight LH635
+console.log(lufthansa);
+
+const eurowings = {
+    airline: 'Eurowings',
+    iataCode: 'EW',
+    bookings: [],
+};
+
+const book = lufthansa.book;
+
+//doesn't work
+//book(23, 'Mariia');
+
+//call method
+book.call(eurowings, 23, 'Mariia');//Mariia booked a seat on Eurowings flight EW23-- the first argument of the call method is what we put in on place of 'this'
+console.log(eurowings);
+
+book.call(lufthansa, 239, 'Pedro');//Pedro booked a seat on Lufthansa flight LH239
+console.log(lufthansa);
+
+//apply method (old method)
+const flightData = [583, 'George'];
+book.apply(eurowings, flightData);//George booked a seat on Eurowings flight EW583
+console.log(eurowings);
+
+book.call(eurowings, ...flightData);
