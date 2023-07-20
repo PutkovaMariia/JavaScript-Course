@@ -19,7 +19,7 @@ createBooking('N900', 5);//{ flightNum: 'N900', numPassengers: 5, price: 995 } -
 //createBooking('fff', , 1000); -- doesn't work because we can't skip parameters this way
 createBooking('fff', undefined, 1000);//{ flightNum: 'fff', numPassengers: 1, price: 1000 } -- only way to skip the parameter is to set it to undefined (is false and we need to take default value instead)
 */
-
+/*
 const flight = 'LH1234';
 const mariia = {
     name: 'Mariia Putkova',
@@ -46,3 +46,30 @@ const newPassport = function (person){
 
 newPassport(mariia);
 checkIn(flight, mariia);//Wrong passport
+ */
+
+const oneWord = function (str){
+    return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function (str){
+    const [first, ...others]= str.split(' ');
+    return [first.toUpperCase(), ...others].join(' ');
+};
+
+//higher-order functions
+const transformer = function (str, fn){
+    console.log(`Original string ${str}`);
+    console.log(`Transformed string ${fn(str)}`);
+
+    console.log(`Transformed by ${fn.name}`);
+}
+transformer('JavaScript is the best', upperFirstWord);//Transformed string JAVASCRIPT is the best
+transformer('JavaScript is the best', oneWord);//Transformed string javascriptisthebest
+
+const high5 = function (){
+    console.log('🖐');
+};
+//document.body.addEventListener('click', high5);
+
+['Jonas', 'Martha', 'Adam'].forEach(high5);//🖐 (3 separate console.logs)
