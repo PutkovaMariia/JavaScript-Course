@@ -88,7 +88,7 @@ greet('Hello')('Mariia');//Hello Mariia
 const greet2 = greeting => name => console.log(`${greeting} ${name}`);
 greet2('Hi')('Roman');//Hi Roman
  */
-
+/*
 const lufthansa = {
     airline: 'Lufthansa',
     iataCode: 'LH',
@@ -166,3 +166,24 @@ const addTaxRate = function (rate){
 }
 const addVAT2 = addTaxRate(0.23);
 console.log(addVAT2(100));//123
+ */
+
+//what if we need to execute function only ones and never again?
+const runOnce = function (){
+    console.log('this run only ones');//this run only ones
+}
+runOnce();//we need to store function in variable and call it, that is wrong for our condition
+
+//IIFE (immediately invoked function expression)
+(function (){
+    console.log('this run only ones');//this run only ones -- works for our condition
+})();
+
+(() => console.log('this run only ones'))();//this run only ones -- works with arrow functions too
+
+{
+    const isPrivate = 23;
+    var notPrivate = 46;
+}
+//console.log(isPrivate); error, variables exist only in their scope
+console.log(notPrivate);//46 - that is why we don`t use var, our data can be modified by anyone
