@@ -167,7 +167,7 @@ const addTaxRate = function (rate){
 const addVAT2 = addTaxRate(0.23);
 console.log(addVAT2(100));//123
  */
-
+/*
 //what if we need to execute function only ones and never again?
 const runOnce = function (){
     console.log('this run only ones');//this run only ones
@@ -187,3 +187,60 @@ runOnce();//we need to store function in variable and call it, that is wrong for
 }
 //console.log(isPrivate); error, variables exist only in their scope
 console.log(notPrivate);//46 - that is why we don`t use var, our data can be modified by anyone
+ */
+/*
+//Closures
+const secureBooking = function () {
+    let passengerCount = 0;
+
+    return function () {
+        passengerCount++;
+        console.log(`${passengerCount} passengers`);
+    }
+}
+
+const booker = secureBooking();
+booker();//1 passengers
+booker();//2 passengers
+booker();//3 passengers
+
+console.dir(booker);
+
+//
+
+let f;
+const g = function () {
+    const a = 23;
+    f = function () {
+        console.log(a * 2);
+    }
+}
+
+g();
+f();//46
+
+const h = function (){
+    const b = 777;
+    f = function () {
+        console.log(b * 2);
+    }
+}
+
+h();
+f();//1554
+console.dir(f);
+
+//
+
+const boardPassengers = function (n, wait){
+    const perGroup = n/3;
+    setTimeout(function (){
+        console.log(`We are now boarding all ${n} passengers`);
+        console.log(`There are 3 groups, each with ${perGroup} passengers`);
+    }, wait * 1000);
+    console.log(`Will start boarding in ${wait} seconds`);
+};
+
+const perGroup = 1000;
+boardPassengers(180, 3);//closure has a priority over scope chain (in this example we use 180, not 1000)
+ */
