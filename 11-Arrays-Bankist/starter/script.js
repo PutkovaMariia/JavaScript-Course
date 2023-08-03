@@ -71,8 +71,6 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
 /////////////////////////////////////////////////
 /*
 //slice (does not mutate array)
@@ -111,7 +109,7 @@ console.log([...arr, ...arr2]);//['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '
 console.log(letters.join('.'));//a.b.c.d.e.f.g.h.i.j
 console.log(letters);//['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
  */
-
+/*
 const arr = [23, 11, 64];
 
 console.log(arr[0]);//23
@@ -125,3 +123,41 @@ console.log(arr.at(-1));//64
 //'at' works with strings too
 console.log('masha'.at(0));//m
 console.log('masha'.at(-1));//a
+*/
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+for (const movement of movements){
+  if (movement > 0){
+    console.log(`here comes the money 🎉${movement}🎉`);
+  } else {
+    console.log(`i hope you spent this on vacation 🌊${Math.abs(movement)}🌊`);
+  }
+}
+console.log('------------------')
+//how to access current index in the for of loop
+for (const [i, movement] of movements.entries()){
+  if (movement > 0){
+    console.log(`${i + 1}.here comes the money 🎉${movement}🎉`);
+  } else {
+    console.log(`${i + 1}.i hope you spent this on vacation 🌊${Math.abs(movement)}🌊`);
+  }
+}
+///////////////////////
+console.log('------------------')
+movements.forEach(function (movement){
+  if (movement > 0){
+    console.log(`here comes the money 🎉${movement}🎉`);
+  } else {
+    console.log(`i hope you spent this on vacation 🌊${Math.abs(movement)}🌊`);
+  }
+});
+console.log('------------------')
+//how to access current index in the forEach loop
+movements.forEach(function (mov, i, arr){//only in this order
+  if (mov > 0){
+    console.log(`${i + 1}.here comes the money 🎉${mov}🎉`);
+  } else {
+    console.log(`${i + 1}.i hope you spent this on vacation 🌊${Math.abs(mov)}🌊`);
+  }
+});
