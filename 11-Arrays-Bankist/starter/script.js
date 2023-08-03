@@ -34,7 +34,7 @@ const account4 = {
 };
 
 const accounts = [account1, account2, account3, account4];
-
+/*
 // Elements
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
@@ -60,7 +60,7 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
-
+*/
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -74,3 +74,39 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+//slice (does not mutate array)
+let arr = ['a', 'b', 'c', 'd', 'e'];
+console.log(arr.slice(2,4));//[ 'c', 'd' ]
+console.log(arr.slice(-2));//[ 'd', 'e' ]
+console.log(arr.slice(1,-2));//[ 'b', 'c']
+console.log(arr.slice());//copy whole array
+console.log([...arr]);//copy whole array
+
+////////
+//splice (mutate array)
+//console.log(arr.splice(2));//[ 'c', 'd', 'e' ]
+//console.log(arr);//[ 'a', 'b' ] - data we spliced from arr were deleted
+
+arr.splice(-1);//[ 'a', 'b', 'c', 'd' ]--we use this to delete last element
+arr.splice(1, 2);//[ 'a', 'd' ]
+console.log(arr);
+
+///////
+//reverse (mutate array)
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h', 'g', 'f'];
+console.log(arr2.reverse());//[ 'f', 'g', 'h', 'i', 'j' ]
+console.log(arr2);//[ 'f', 'g', 'h', 'i', 'j' ]
+
+///////
+//concat (does not mutate array)
+const letters = arr.concat(arr2);
+console.log(letters);//['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+console.log(...arr, ...arr2);//a b c d e f g h i j
+console.log([...arr, ...arr2]);//['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+///////
+//join (does not mutate array)
+console.log(letters.join('.'));//a.b.c.d.e.f.g.h.i.j
+console.log(letters);//['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
