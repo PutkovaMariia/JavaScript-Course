@@ -74,7 +74,7 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-
+/*
 //slice (does not mutate array)
 let arr = ['a', 'b', 'c', 'd', 'e'];
 console.log(arr.slice(2,4));//[ 'c', 'd' ]
@@ -110,3 +110,18 @@ console.log([...arr, ...arr2]);//['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '
 //join (does not mutate array)
 console.log(letters.join('.'));//a.b.c.d.e.f.g.h.i.j
 console.log(letters);//['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+ */
+
+const arr = [23, 11, 64];
+
+console.log(arr[0]);//23
+console.log(arr.at(0));//23
+
+//getting last element
+console.log(arr[arr.length - 1]);//64
+console.log(arr.slice(-1));//[ 64 ]
+console.log(arr.slice(-1)[0]);//64
+console.log(arr.at(-1));//64
+//'at' works with strings too
+console.log('masha'.at(0));//m
+console.log('masha'.at(-1));//a
