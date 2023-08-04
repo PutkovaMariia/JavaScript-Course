@@ -61,15 +61,6 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 */
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
 
 /////////////////////////////////////////////////
 /*
@@ -124,7 +115,7 @@ console.log(arr.at(-1));//64
 console.log('masha'.at(0));//m
 console.log('masha'.at(-1));//a
 */
-
+/*
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 for (const movement of movements){
@@ -161,3 +152,22 @@ movements.forEach(function (mov, i, arr){//only in this order
     console.log(`${i + 1}.i hope you spent this on vacation 🌊${Math.abs(mov)}🌊`);
   }
 });
+*/
+
+//map
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach(function (value, key, map){
+  console.log(`${key}: ${value}`);
+})
+
+//set
+const currenciesUnique = new Set (['USD', 'GBR', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);//Set(3) { 'USD', 'GBR', 'EUR' }
+currenciesUnique.forEach(function (value, _, map){//in sets we don`t have key
+  console.log(`${value}: ${value}`);
+})
