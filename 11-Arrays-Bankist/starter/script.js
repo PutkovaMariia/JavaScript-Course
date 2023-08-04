@@ -187,3 +187,31 @@ currenciesUnique.forEach(function (value, _, map) {//in sets we don`t have key
     console.log(`${value}: ${value}`);
 })
  */
+
+
+//map method
+//we create a function map
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+// const movementsUSD = movements.map(function (mov){
+//     return mov * eurToUsd;
+// });
+const movementsUSD = movements.map(mov => mov * eurToUsd);
+console.log(movements);
+console.log(movementsUSD);
+
+//the same but with loops and new array
+const movementsUSDfor = [];
+for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+console.log(movementsUSDfor);
+
+const movementsDescriptions = movements.map((mov, i) =>
+    // if (mov > 0) {
+    //     return `${i + 1}.here comes the money 🎉${mov}🎉`;
+    // } else {
+    //     return `${i + 1}.i hope you spent this on vacation 🌊${Math.abs(mov)}🌊`;
+    // }
+    //or
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
+);
+console.log(movementsDescriptions);
