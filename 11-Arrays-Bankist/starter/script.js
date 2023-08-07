@@ -30,8 +30,31 @@ const account4 = {
     interestRate: 1,
     pin: 4444,
 };
-
 const accounts = [account1, account2, account3, account4];
+
+/*
+const result = [];
+for(const acc of accounts) {
+    if (acc.owner.split(" ").length === 2) {
+        const [firstName, lastName] = acc.owner.split(" ")
+        result.push({
+            firstname: firstName,
+            lastName: lastName
+        })
+    }
+}
+
+const aa = console.log("aaaa")
+let rest2 = accounts.filter(acc => acc.owner.split(" ").length === 2)
+    .map(acc => {
+        const [firstName, lastName] = acc.owner.split(" ")
+        return {
+            firstname: firstName,
+            lastName: lastName
+        }
+    });
+console.log(rest2);
+*/
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -76,6 +99,16 @@ const displayMovements = function (movements) {
     });
 }
 displayMovements(account1.movements);
+//////////////
+const createUsernames = function (accs) {
+    accs.forEach(function (acc){
+        acc.username = acc.owner.toLocaleLowerCase().split(' ')
+            .map(name => name[0]).join('');
+    })
+}
+
+createUsernames(accounts);
+console.log(accounts);
 
 /////////////////////////////////////////////////
 /*
