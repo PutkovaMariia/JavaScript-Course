@@ -99,6 +99,12 @@ const displayMovements = function (movements) {
     });
 }
 displayMovements(account1.movements);
+
+const calcDisplayBalance =function (movements){
+    const balance = movements.reduce((acc, cur) => acc + cur, 0);
+    labelBalance.textContent = `${balance}€`;
+};
+calcDisplayBalance(account1.movements);
 //////////////
 const createUsernames = function (accs) {
     accs.forEach(function (acc){
@@ -108,7 +114,6 @@ const createUsernames = function (accs) {
 }
 
 createUsernames(accounts);
-console.log(accounts);
 
 /////////////////////////////////////////////////
 /*
@@ -248,10 +253,30 @@ const movementsDescriptions = movements.map((mov, i) =>
     `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
 );
 console.log(movementsDescriptions);
-
+/*
 const deposits = movements.filter(mov => mov > 0);
 console.log(movements);//[200, 450, -400, 3000, -650, -130, 70, 1300]
 console.log(deposits);//[200, 450, 3000, 70, 1300]
 
 const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals);//[ -400, -650, -130 ]
+ */
+
+//accumulator is like a snowball (all values added)
+// const balance = movements.reduce(function
+// (accumulator, cur, i, arr){
+//     console.log(`iteration ${i}: ${accumulator}`);
+//     return accumulator + cur;
+// }, 0);//we want to start adding from zero
+//the same in arrow function
+const balance = movements.reduce((accumulator, cur) => accumulator + cur, 0);
+console.log(`balance ` + balance);
+
+//the same with for of
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+
+//max value
+const max = movements.reduce((acc, mov) => acc > mov ? acc : mov, movements[0]);
+console.log(max);
