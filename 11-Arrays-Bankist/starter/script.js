@@ -136,6 +136,7 @@ const createUsernames = function (accs) {
 createUsernames(accounts);
 
 /////////////////////////////////////////////////
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 /*
 //slice (does not mutate array)
 let arr = ['a', 'b', 'c', 'd', 'e'];
@@ -246,7 +247,7 @@ currenciesUnique.forEach(function (value, _, map) {//in sets we don`t have key
 })
  */
 
-
+/*
 //map method
 //we create a function map
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -273,14 +274,14 @@ const movementsDescriptions = movements.map((mov, i) =>
     `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
 );
 console.log(movementsDescriptions);
-/*
+
 const deposits = movements.filter(mov => mov > 0);
 console.log(movements);//[200, 450, -400, 3000, -650, -130, 70, 1300]
 console.log(deposits);//[200, 450, 3000, 70, 1300]
 
 const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals);//[ -400, -650, -130 ]
- */
+
 
 //accumulator is like a snowball (all values added)
 // const balance = movements.reduce(function
@@ -302,11 +303,26 @@ const max = movements.reduce((acc, mov) => acc > mov ? acc : mov, movements[0]);
 console.log(max);
 
 /////////////////////
-//pipeline
 const totalDepositsUSD = movements
     .filter(mov => mov > 0)
     .map(mov => mov * eurToUsd)
     .reduce((acc, mov) => acc + mov, 0);
 console.log(totalDepositsUSD);//5522.000000000001
+*/
+//returns first element which satisfied the condition
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
 
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
 
+//the same with for of
+const accountFor = function (name){
+    for (const acc of accounts){
+        if (acc.owner === name){
+            return acc;
+        }
+    }
+};
+console.log(accountFor('Jonas Schmedtmann'));
