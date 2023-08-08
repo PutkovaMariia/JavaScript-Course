@@ -17,14 +17,19 @@ checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
 ////////
 
-const calcAverageHumanAge = function (ages) {
-    const humanAge = ages.map(dogAge => dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4);
-    console.log(`humanAge: ${humanAge}`);
-    const adultDogs = humanAge.filter(age => age >= 18);
-    console.log(`adultDogs: ${adultDogs}`);
-    console.log(`adultDogs.length: ${adultDogs.length}`);
-    return adultDogs.reduce((acc, age) => acc + age, 0) / adultDogs.length;
-};
+// const calcAverageHumanAge = function (ages) {
+//     const humanAge = ages.map(dogAge => dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4);
+//     console.log(`humanAge: ${humanAge}`);
+//     const adultDogs = humanAge.filter(age => age >= 18);
+//     console.log(`adultDogs: ${adultDogs}`);
+//     console.log(`adultDogs.length: ${adultDogs.length}`);
+//     return adultDogs.reduce((acc, age) => acc + age, 0) / adultDogs.length;
+// };
+
+const calcAverageHumanAge = ages => ages
+        .map(dogAge => dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4)
+        .filter(age => age >= 18)
+        .reduce((acc, age, i, arr) => acc + age/ arr.length, 0);
 
 console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
 console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
