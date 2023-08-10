@@ -82,10 +82,15 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
     containerMovements.innerHTML = '';
 
-    movements.forEach(function (mov, i) {
+    //we need to create a copy, so we do not mutate original array
+    const movs = sort ? movements
+        .slice()
+        .sort((a, b) => a - b) : movements;
+
+    movs.forEach(function (mov, i) {
         const type = mov > 0 ? 'deposit' : 'withdrawal';
 
         const html = `
@@ -224,6 +229,13 @@ btnClose.addEventListener('click', function (e) {
     }
     inputCloseUsername.value = inputClosePin.value = '';
 });
+
+let sorted = false;
+btnSort.addEventListener('click', function (e){
+    e.preventDefault();
+    displayMovements(currentAccount.movements, !sorted);
+    sorted = !sorted;
+})
 
 /////////////////////////////////////////////////
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -437,7 +449,7 @@ console.log(movements.some(deposit));
 console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
  */
-
+/*
 //flat method only goes one level deep
 const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
 console.log(arr.flat());//[1, 2, 3, 4, 5, 6, 7, 8]
@@ -455,19 +467,41 @@ const accountMovements = accounts.map(acc => acc.movements);
 console.log(accountMovements);//[Array(8), Array(8), Array(8), Array(5)]
 const allMovements = accountMovements.flat();
 console.log(allMovements);//[200, 450, -400, 3000, -650, -130, 70, 1300, 5000, 3400, -150, -790, -3210, -1000, 8500, -30, 200, -200, 340, -300, -20, 50, 400, -460, 430, 1000, 700, 50, 90]
-const overalBalance = allMovements
+const overallBalance = allMovements
     .reduce((acc, mov) => acc + mov, 0);
-console.log(overalBalance);//17840
+console.log(overallBalance);//17840
 
 //the same but shorter
-const overalBalance2 = accounts
+const overallBalance2 = accounts
     .map(acc => acc.movements)
     .flat()
     .reduce((acc, mov) => acc + mov, 0);
-console.log(overalBalance2);//17840
+console.log(overallBalance2);//17840
 
 //flatMap (combine map and flat) (goes only 1 level deep, and we can not change it)
-const overalBalance3 = accounts
+const overallBalance3 = accounts
     .flatMap(acc => acc.movements)
     .reduce((acc, mov) => acc + mov, 0);
-console.log(overalBalance3);
+console.log(overallBalance3);
+ */
+/*
+//sort with strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort());//[ "Adam", "Jonas", "Martha", "Zach" ]
+console.log(owners);////[ "Adam", "Jonas", "Martha", "Zach" ]--sort mutates original array
+
+//sort with numbers
+console.log(movements);//[ 200, 450, -400, 3000, -650, -130, 70, 1300 ]
+console.log(movements.sort());//[ -130, -400, -650, 1300, 200, 3000, 450, 70 ]--works incorrectly
+
+//return < 0 => a, b (keep order)
+//return > 0 => b, a (switch order)
+//first option (long)
+// movements.sort((a, b) => {
+//     if (a > b) return 1;
+//     if (a < b) return -1;
+// })
+//second option (short)
+movements.sort((a, b) => a - b);
+console.log(movements);//[ -650, -400, -130, 70, 200, 450, 1300, 3000 ]
+ */
