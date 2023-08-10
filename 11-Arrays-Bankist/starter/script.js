@@ -420,7 +420,7 @@ console.log(accountFor('Jonas Schmedtmann'));
  */
 
 /////////
-
+/*
 //equality
 console.log(movements.includes(-130));
 
@@ -436,3 +436,38 @@ const deposit = mov => mov > 0;
 console.log(movements.some(deposit));
 console.log(movements.every(deposit));
 console.log(movements.filter(deposit));
+ */
+
+//flat method only goes one level deep
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());//[1, 2, 3, 4, 5, 6, 7, 8]
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat());//[Array(2), 3, 4, Array(2), 7, 8]
+
+//we can set how deep we want to go
+const arrDeep2 = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep2.flat(2));//[1, 2, 3, 4, 5, 6, 7, 8]
+
+////////
+
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);//[Array(8), Array(8), Array(8), Array(5)]
+const allMovements = accountMovements.flat();
+console.log(allMovements);//[200, 450, -400, 3000, -650, -130, 70, 1300, 5000, 3400, -150, -790, -3210, -1000, 8500, -30, 200, -200, 340, -300, -20, 50, 400, -460, 430, 1000, 700, 50, 90]
+const overalBalance = allMovements
+    .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance);//17840
+
+//the same but shorter
+const overalBalance2 = accounts
+    .map(acc => acc.movements)
+    .flat()
+    .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance2);//17840
+
+//flatMap (combine map and flat) (goes only 1 level deep, and we can not change it)
+const overalBalance3 = accounts
+    .flatMap(acc => acc.movements)
+    .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance3);
