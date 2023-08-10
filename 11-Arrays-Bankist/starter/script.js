@@ -136,7 +136,7 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts);
 
-const updateUI = function (acc){
+const updateUI = function (acc) {
     //display movements
     displayMovements(acc.movements);
 
@@ -181,8 +181,7 @@ btnTransfer.addEventListener('click', function (e) {
     if (amount > 0 &&
         receiverAcc &&
         currentAccount.balance >= amount &&
-        receiverAcc.username !== currentAccount.username)
-    {
+        receiverAcc.username !== currentAccount.username) {
         //doing the transfer
         currentAccount.movements.push(-amount);
         receiverAcc.movements.push(amount);
@@ -192,12 +191,27 @@ btnTransfer.addEventListener('click', function (e) {
     }
 });
 
-btnClose.addEventListener('click', function (e){
+btnLoan.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const amount = Number(inputLoanAmount.value);
+
+    if (amount > 0 &&
+        currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+        //add the movment
+        currentAccount.movements.push(amount);
+
+        //update UI
+        updateUI(currentAccount);
+    }
+    inputLoanAmount.value = '';
+})
+
+btnClose.addEventListener('click', function (e) {
     e.preventDefault();
 
     if (inputCloseUsername.value === currentAccount.username &&
-        Number(inputClosePin.value) === currentAccount.pin)
-    {
+        Number(inputClosePin.value) === currentAccount.pin) {
         const index = accounts
             .findIndex(acc => acc.username === currentAccount.username);
         console.log(index);
@@ -209,7 +223,7 @@ btnClose.addEventListener('click', function (e){
         containerApp.style.opacity = 0;
     }
     inputCloseUsername.value = inputClosePin.value = '';
-})
+});
 
 /////////////////////////////////////////////////
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -404,3 +418,21 @@ const accountFor = function (name){
 };
 console.log(accountFor('Jonas Schmedtmann'));
  */
+
+/////////
+
+//equality
+console.log(movements.includes(-130));
+
+//some: condition (at least 1 matches the condition)
+const anyDeposits = movements.some(mov => mov > 1500);
+console.log(anyDeposits);
+
+//every (all need to match the condition)
+console.log(account4.movements.every(mov => mov > 0));//true
+
+//separate callback (we can save the condition and don`t write it every time)
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
