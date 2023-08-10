@@ -100,13 +100,14 @@ const displayMovements = function (movements) {
 }
 
 
-const calcDisplayBalance =function (movements){
-    const balance = movements.reduce((acc, cur) => acc + cur, 0);
-    labelBalance.textContent = `${balance}€`;
+const calcDisplayBalance = function (acc) {
+    acc.balance = acc.movements
+        .reduce((acc, cur) => acc + cur, 0);
+    labelBalance.textContent = `${acc.balance}€`;
 };
 
 //////////////
-const calcDisplaySummary = function (acc){
+const calcDisplaySummary = function (acc) {
     const incomes = acc.movements
         .filter(mov => mov > 0)
         .reduce((acc, mov) => acc + mov, 0);
@@ -119,7 +120,7 @@ const calcDisplaySummary = function (acc){
 
     const interest = acc.movements
         .filter(mov => mov > 0)
-        .map(deposit => deposit * acc.interestRate/100)
+        .map(deposit => deposit * acc.interestRate / 100)
         .filter(inter => inter >= 1)
         .reduce((acc, inter) => acc + inter, 0);
     labelSumInterest.textContent = `${interest}€`;
@@ -127,7 +128,7 @@ const calcDisplaySummary = function (acc){
 
 //////////////
 const createUsernames = function (accs) {
-    accs.forEach(function (acc){
+    accs.forEach(function (acc) {
         acc.username = acc.owner.toLocaleLowerCase().split(' ')
             .map(name => name[0]).join('');
     })
@@ -135,33 +136,59 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts);
 
+const updateUI = function (acc){
+    //display movements
+    displayMovements(acc.movements);
+
+    //display balance
+    calcDisplayBalance(acc);
+
+    //display summary
+    calcDisplaySummary(acc);
+};
+
 //event handler
-let currantAccount;
-btnLogin.addEventListener('click', function (e){
+let currentAccount;
+btnLogin.addEventListener('click', function (e) {
 
-    //prevent form from submitting
-    e.preventDefault();
-    currantAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
-    console.log(currantAccount);
+    e.preventDefault();//prevent form from submitting
+    currentAccount = accounts
+        .find(acc => acc.username === inputLoginUsername.value);
+    console.log(currentAccount);
 
-    if (currantAccount?.pin === Number(inputLoginPin.value)){
+    if (currentAccount?.pin === Number(inputLoginPin.value)) {//? is optional chaining, so we don`t need to write this second time in another place, we can make it in one place multiple times
 
         //display ui and welcome message
-        labelWelcome.textContent = `Welcome back, ${currantAccount.owner.split(' ')[0]}`;
+        labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
         containerApp.style.opacity = 100;
 
         //clear the input fields
         inputLoginUsername.value = inputLoginPin.value = '';
         inputLoginPin.blur();//this field loses focus
 
-        //display movements
-        displayMovements(currantAccount.movements);
+        //update UI
+        updateUI(currentAccount);
+    }
+});
 
-        //display balance
-        calcDisplayBalance(currantAccount.movements);
+btnTransfer.addEventListener('click', function (e) {
+    e.preventDefault();//prevent form from submitting
+    const amount = Number(inputTransferAmount.value);
+    const receiverAcc = accounts
+        .find(acc => acc.username === inputTransferTo.value);
+    inputTransferAmount.value = inputTransferTo.value = '';
 
-        //display summary
-        calcDisplaySummary(currantAccount);
+    if (amount > 0 &&
+        receiverAcc &&
+        currentAccount.balance >= amount &&
+        receiverAcc.username !== currentAccount.username)
+    {
+        //doing the transfer
+        currentAccount.movements.push(-amount);
+        receiverAcc.movements.push(amount);
+
+        //update UI
+        updateUI(currentAccount);
     }
 })
 
