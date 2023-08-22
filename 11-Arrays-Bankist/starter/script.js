@@ -231,7 +231,7 @@ btnClose.addEventListener('click', function (e) {
 });
 
 let sorted = false;
-btnSort.addEventListener('click', function (e){
+btnSort.addEventListener('click', function (e) {
     e.preventDefault();
     displayMovements(currentAccount.movements, !sorted);
     sorted = !sorted;
@@ -505,3 +505,37 @@ console.log(movements.sort());//[ -130, -400, -650, 1300, 200, 3000, 450, 70 ]--
 movements.sort((a, b) => a - b);
 console.log(movements);//[ -650, -400, -130, 70, 200, 450, 1300, 3000 ]
  */
+const x = new Array(7);
+console.log(x);//[ <7 empty slots> ]
+//method fill, only one way to work with empty arrays
+x.fill(1);
+console.log(x);//[ 1, 1, 1, 1, 1, 1, 1 ]
+
+const y = new Array(7);
+y.fill(1, 3, 5);
+console.log(y);//[ <3 empty slots>, 1, 1, <2 empty slots> ]
+
+//method fill works with full arrays too
+const arr = [1, 2, 3, 4, 5, 6, 7];
+arr.fill(23, 2, 6);
+console.log(arr);//[ 1, 2, 23, 23, 23, 23, 7 ]
+
+//array.from
+const q = Array.from({length: 7}, () => 1);
+console.log(q);//[ 1, 1, 1, 1, 1, 1, 1 ]
+
+const w = Array
+    .from({length: 7}, (_, i) => i + 1);//_ is `throwaway` variable, that we don`t need but we can`t skip it
+console.log(w);//[ 1, 2, 3, 4, 5, 6, 7 ]
+
+//creating an array of 100 dice rolls
+const e = Array
+    .from({length: 100}, () => Math
+        .floor(Math.random() * 6) + 1);
+console.log(e);
+
+labelBalance.addEventListener('click', function () {
+    const movementsUI = Array.from(document.querySelectorAll('.movements__value'),
+        el => Number(el.textContent.replace('€', '')));
+    console.log(movementsUI);
+})
