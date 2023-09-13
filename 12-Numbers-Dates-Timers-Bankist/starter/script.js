@@ -317,7 +317,7 @@ console.log((2.7).toFixed(3))//'2.700'
 console.log((2.345).toFixed(2))//'2.35'
 console.log(+(2.345).toFixed(2))//2.35 (+ converts string to a number)
 */
-
+/*
 //reminder operator
 console.log(5 % 2);//1
 
@@ -335,3 +335,13 @@ labelBalance.addEventListener('click', function (){
             if (i % 3 === 0) row.style.backgroundColor = 'green';
         });
 })
+*/
+
+//numeric separators (only for numbers)
+//287,460,000,000
+const diameter = 287_460_000_000;//we can use _ to separate numbers to understand them more clearly, in the console it will be without _
+console.log(diameter);//287460000000
+
+console.log(Number('230000'));//230000
+console.log(Number('230_000'));//NaN
+
