@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -164,7 +164,7 @@ btnLogin.addEventListener('click', function (e) {
   );
   console.log(currentAccount);
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
@@ -182,7 +182,7 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -223,7 +223,7 @@ btnClose.addEventListener('click', function (e) {
 
   if (
     inputCloseUsername.value === currentAccount.username &&
-    Number(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     const index = accounts.findIndex(
       acc => acc.username === currentAccount.username
@@ -251,3 +251,69 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+ /*
+console.log(23 === 23.00)//true
+// base 10 - 0 to 9
+// binary base 2 - 0 and 1
+
+//converting strings to numbers
+console.log(Number('23'));//23
+console.log(+'23');//23
+console.log(Number('8') === +'8');//true
+
+//parsing
+console.log(Number.parseInt('30px', 10));//30 (where 10 is base 10, we need to write it to avoid some bugs)
+console.log(Number.parseInt('e23', 10));//NaN (because it should start from a number)
+
+console.log(Number.parseFloat('2.5rem'));//2.5
+console.log(Number.parseInt('2.5rem'));//2
+
+//check if value is NaN
+console.log(Number.isNaN(20));//false
+console.log(Number.isNaN('20'));//false
+console.log(Number.isNaN(+'20x'));//true
+console.log(Number.isNaN(23/0));//false
+
+//checking if the value is a number (the best way)
+console.log(Number.isFinite(20));//true
+console.log(Number.isFinite('20'));//false
+console.log(Number.isFinite(+'20x'));//false
+console.log(Number.isFinite(23/0));//false
+*/
+
+console.log(Math.sqrt(25));//5
+console.log(25 ** (1/2));//5 (the same)
+console.log(8 ** (1/3));//2 (only way to calculate the cubic root)
+
+console.log(Math.max(5,18,23,1,22));//23
+console.log(Math.max(5,18,'23',1,22));//23 (still works)
+console.log(Math.max(5,18,'23px',1,22));//Nan
+
+//calculate the area of the circle
+console.log(Math.PI * Number.parseFloat('10px') ** 2);//314.1592653589793
+
+console.log(Math.trunc(Math.random() * 6) + 1);//random from 1 to 6
+
+const randomInt = (min, max) =>
+    Math.floor(Math.random() * (max - min) + 1) + min;
+console.log(randomInt(10, 20));//random from 10 to 20
+
+//rounding integers
+console.log(Math.trunc(23.2));//23
+console.log(Math.round(23.9));//24
+
+console.log(Math.ceil(23.2));//24
+console.log(Math.ceil(23.9));//24
+
+console.log(Math.floor(23.2));//23
+console.log(Math.floor(23.9));//23
+
+console.log(Math.trunc(-23.2));//-23
+console.log(Math.floor(-23.9));//-24
+
+//rounding decimals
+console.log((2.7).toFixed(0))//'3' (as string)
+console.log((2.7).toFixed(3))//'2.700'
+console.log((2.345).toFixed(2))//'2.35'
+console.log(+(2.345).toFixed(2))//2.35 (+ converts string to a number)
+
