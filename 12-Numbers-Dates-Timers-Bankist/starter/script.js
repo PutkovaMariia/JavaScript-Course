@@ -345,7 +345,7 @@ console.log(diameter);//287460000000
 console.log(Number('230000'));//230000
 console.log(Number('230_000'));//NaN
 */
-
+/*
 //the biggest number (because we have 64-bit system)
 console.log(2**53-1);//9007199254740991
 // (53 because only 53 are used to display digits themselves,
@@ -375,4 +375,38 @@ console.log(523665254236952369n + 'is a big int');//523665254236952369is a big i
 console.log(20n> 15);//true
 console.log(20n === 20);//false
 console.log(20n == '20');//true
+*/
+/*
+//create a date
 
+const now = new Date();
+console.log(now);//Date Thu Sep 14 2023 18:46:58 GMT+0200 (за центральноєвропейським літнім часом)
+
+console.log(new Date('Sep 14 2023 18:46:58'));//Thu Sep 14 2023 18:46:58 GMT+0200 (за центральноєвропейським літнім часом)
+console.log(new Date('December 24, 2015'));//Thu Dec 24 2015 00:00:00 GMT+0100 (за центральноєвропейським стандартним часом)
+
+console.log(new Date(account1.movementsDates[0]));//Mon Nov 18 2019 22:31:17 GMT+0100 (за центральноєвропейським стандартним часом)
+
+console.log(new Date(2037, 9, 15, 23, 5));//Thu Oct 15 2037 23:05:00 GMT+0200 (за центральноєвропейським літнім часом) (month is zero-baced, so here we have 9 but js writing October
+console.log(new Date(2037, 10, 31));//Tue Dec 01 2037 00:00:00 GMT+0100 (за центральноєвропейським стандартним часом) (November hasn't got 31 so js auto-corrected to 1 of December)
+
+console.log(new Date(0));//Thu Jan 01 1970 01:00:00 GMT+0100 (за центральноєвропейським стандартним часом)
+console.log(new Date(3 * 24 * 60 * 60 * 1000));//Sun Jan 04 1970 01:00:00 GMT+0100 (за центральноєвропейським стандартним часом)
+*/
+//working with dates
+const future = new Date(2037, 9, 15, 23, 5);
+console.log(future.getFullYear());//2037
+console.log(future.getMonth());//9
+console.log(future.getDate());//15
+console.log(future.getDay());//4
+console.log(future.getHours());//23
+console.log(future.getMinutes());//5
+console.log(future.toISOString());//2037-10-15T21:05:00.000Z
+console.log(future.getTime());//2139253500000 (milliseconds from 1970 to our value)
+
+console.log(new Date(2139253500000));//Thu Oct 15 2037 23:05:00 GMT+0200 (за центральноєвропейським літнім часом) (we wrote how many milliseconds have passed since 1970)
+
+console.log(Date.now());//1694711554652 (how many milliseconds have passed since 1970)
+
+future.setFullYear(2040);
+console.log(future);//Mon Oct 15 2040 23:05:00 GMT+0200 (за центральноєвропейським літнім часом) (we have changed the year, day of the week has been changed automatically)
