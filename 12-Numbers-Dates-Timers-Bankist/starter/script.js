@@ -336,7 +336,7 @@ labelBalance.addEventListener('click', function (){
         });
 })
 */
-
+/*
 //numeric separators (only for numbers)
 //287,460,000,000
 const diameter = 287_460_000_000;//we can use _ to separate numbers to understand them more clearly, in the console it will be without _
@@ -344,4 +344,35 @@ console.log(diameter);//287460000000
 
 console.log(Number('230000'));//230000
 console.log(Number('230_000'));//NaN
+*/
+
+//the biggest number (because we have 64-bit system)
+console.log(2**53-1);//9007199254740991
+// (53 because only 53 are used to display digits themselves,
+// the rest are for storing the position of the decimal point and a sign)
+console.log(Number.MAX_SAFE_INTEGER);//9007199254740991
+console.log(Number.MIN_SAFE_INTEGER);//-9007199254740991
+
+//if we need to write a big number we can have this problem
+console.log(1234567890123456789123456789123456789);//1.2345678901234568e+36
+//but if we will add 'n' this number becomes BigINT
+console.log(1234567890123456789123456789123456789n);//1234567890123456789123456789123456789n
+
+//BigInt should be used with smaller numbers
+console.log(BigInt(1234567890123456789123456789123456789));//1234567890123456841093504014485553152n(not the same as we logged)
+console.log(BigInt(1234567890123456));//1234567890123456n
+
+//operations
+console.log(10000n + 10000n);//20000n
+console.log(4562145862148563214586n * 100000n);//456214586214856321458600000n
+console.log(11n / 3n);//3n
+console.log(10n / 3n);//3n
+console.log(12n / 3n);//4n
+
+console.log(523665254236952369n + 'is a big int');//523665254236952369is a big int (as a string)
+
+//exceptions
+console.log(20n> 15);//true
+console.log(20n === 20);//false
+console.log(20n == '20');//true
 
