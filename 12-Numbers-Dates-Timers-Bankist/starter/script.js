@@ -26,7 +26,7 @@ const account1 = {
         '2023-09-14T12:01:20.894Z',
     ],
     currency: 'EUR',
-    locale: 'pt-PT', // de-DE
+    locale: 'uk-UA', // de-DE
 };
 
 const account2 = {
@@ -81,7 +81,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const formatMovementDate = function (date) {
+const formatMovementDate = function (date, locale) {
     const calcDaysPassed = (date1, date2) => Math.round(Math
         .abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
@@ -91,10 +91,11 @@ const formatMovementDate = function (date) {
     if (daysPassed === 1) return 'Yesterday';
     if (daysPassed <= 7) return `${daysPassed} days ago`;
     else {
-        const day = `${date.getDate()}`.padStart(2, 0);//if the day has only 1 digit we add 0 before
-        const month = `${date.getMonth() + 1}`.padStart(2, 0);//+1 is because it is zero-based
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
+        return new Intl.DateTimeFormat(locale).format(date);
+        // const day = `${date.getDate()}`.padStart(2, 0);//if the day has only 1 digit we add 0 before
+        // const month = `${date.getMonth() + 1}`.padStart(2, 0);//+1 is because it is zero-based
+        // const year = date.getFullYear();
+        // return `${day}/${month}/${year}`;
     }
 }
 
@@ -109,7 +110,7 @@ const displayMovements = function (acc, sort = false) {
         const type = mov > 0 ? 'deposit' : 'withdrawal';
 
         const date = new Date(acc.movementsDates[i]);
-        const displayDate = formatMovementDate(date);
+        const displayDate = formatMovementDate(date, acc.locale);
 
         const html = `
       <div class="movements__row">
@@ -201,12 +202,25 @@ btnLogin.addEventListener('click', function (e) {
 
         //create current date and time
         const now = new Date();
-        const day = `${now.getDate()}`.padStart(2, 0);
-        const month = `${now.getMonth() + 1}`.padStart(2, 0);
-        const year = now.getFullYear();
-        const hour = `${now.getHours()}`.padStart(2, 0);
-        const min = `${now.getMinutes()}`.padStart(2, 0);
-        labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+        const options = {
+            hour: 'numeric',
+            minute: 'numeric',
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            // weekday: 'short',
+        };
+        // const locale = navigator.language; // data coming from browser
+
+        labelDate.textContent = new Intl
+            .DateTimeFormat(currentAccount.locale, options)//or we can dardcode it like 'en-UK'
+            .format(now);
+        // const day = `${now.getDate()}`.padStart(2, 0);
+        // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+        // const year = now.getFullYear();
+        // const hour = `${now.getHours()}`.padStart(2, 0);
+        // const min = `${now.getMinutes()}`.padStart(2, 0);
+
 
         // Clear input fields
         inputLoginUsername.value = inputLoginPin.value = '';
@@ -456,7 +470,7 @@ console.log(Date.now());//1694711554652 (how many milliseconds have passed since
 future.setFullYear(2040);
 console.log(future);//Mon Oct 15 2040 23:05:00 GMT+0200 (за центральноєвропейським літнім часом) (we have changed the year, day of the week has been changed automatically)
 */
-
+/*
 const future = new Date(2037, 9, 15, 23, 5);
 console.log(Number(future));//2139253500000 - time in milliseconds
 console.log(+future);//2139253500000
@@ -467,3 +481,6 @@ const calcDaysPassed = (date1, date2) => Math
 const days1 = calcDaysPassed(new Date(2037, 5, 15),
     new Date(2037, 5, 13));
 console.log(days1);
+ */
+
+
