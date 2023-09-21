@@ -101,9 +101,9 @@ const formatMovementDate = function (date, locale) {
 
 const formatCur = function (value, locale, currency) {
     return new Intl.NumberFormat(locale, {
-            style: 'currency',
-            currency: currency,
-        }).format(value);
+        style: 'currency',
+        currency: currency,
+    }).format(value);
 }
 
 const displayMovements = function (acc, sort = false) {
@@ -184,14 +184,42 @@ const updateUI = function (acc) {
     calcDisplaySummary(acc);
 };
 
+const startLogOutTimer = function () {
+    const tick = function () {
+        const min = String(Math.trunc(time / 60)).padStart(2, 0);
+        const sec = String(time % 60).padStart(2, 0);
+        //in each call, print the remaining time to UI
+        labelTimer.textContent = `${min}:${sec}`;
+
+        //when 0 seconds, stop time and logout user
+        if (time === 0){
+            clearInterval(timer);
+            labelWelcome.textContent = 'Log in to get started';
+            containerApp.style.opacity = 0;
+        }
+
+        //decrease 1 second
+        time--;
+
+    };
+    //set time to 5 minutes
+    let time = 120;
+
+    //call the timer every second
+    tick();
+    const timer = setInterval(tick, 1000);
+
+    return timer;
+}
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
 //FAKE ALWAYS LOGGED IN
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
     // Prevent form from submitting
@@ -235,6 +263,10 @@ btnLogin.addEventListener('click', function (e) {
         inputLoginUsername.value = inputLoginPin.value = '';
         inputLoginPin.blur();
 
+        //timer
+        if (timer) clearInterval(timer);
+        timer = startLogOutTimer();
+
         // Update UI
         updateUI(currentAccount);
     }
@@ -264,6 +296,10 @@ btnTransfer.addEventListener('click', function (e) {
 
         // Update UI
         updateUI(currentAccount);
+
+        //reset timer
+        clearInterval(timer);
+        timer = startLogOutTimer();
     }
 });
 
@@ -273,7 +309,7 @@ btnLoan.addEventListener('click', function (e) {
     const amount = Math.floor(inputLoanAmount.value);
 
     if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-        setTimeout(function (){// Add movement
+        setTimeout(function () {// Add movement
             currentAccount.movements.push(amount);
 
             //add loan date
@@ -281,6 +317,10 @@ btnLoan.addEventListener('click', function (e) {
 
             // Update UI
             updateUI(currentAccount);
+
+            //reset timer
+            clearInterval(timer);
+            timer = startLogOutTimer();
         }, 2500);
     }
     inputLoanAmount.value = '';
@@ -526,7 +566,7 @@ console.log('Germany:', new Intl.NumberFormat('de-DE', options2)
 console.log(navigator.language, new Intl.NumberFormat(navigator.language, options2)
     .format(num));//uk-UA 456 123,45 EUR
  */
-
+/*
 //setTimeout
 const ingredients = ['olives', 'spinach']
 const pizzaTimer = setTimeout((ing1, ing2) =>
@@ -542,4 +582,5 @@ setInterval(function (){
     const sec = `${now.getSeconds()}`.padStart(2, 0);
     console.log(`${hour}:${min}:${sec}`);
 }, 1000);
+*/
 
