@@ -1,12 +1,14 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -29,6 +31,50 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+///////////////////////////
+//button scrolling
+btnScrollTo.addEventListener('click', function (e){
+  const s1coords = section1.getBoundingClientRect();
+  section1.scrollIntoView({behavior: 'smooth'});
+})
+
+//////////////////////////////
+//page navigation
+
+//this method can be used when we have few links, but if there are 10,000 of them, it will be time-consuming and resource-intensive
+// document.querySelectorAll('.nav__link')
+//     .forEach(function (el){
+//   el.addEventListener('click', function (e){
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({
+//       behavior: 'smooth'
+//     });
+//   })
+// })
+
+//1.add event listener to common parent element
+//2.determine what element originated the event
+
+//event delegation which is better than attaching the same event handler
+//to multiple elements, instead we simply added one, big event handler
+// function to the parent element of all the elements we are interested in
+//than we determined where the click event came from
+document.querySelector('.nav__links')
+    .addEventListener('click', function (e){
+      e.preventDefault();
+
+      //matching strategy (if the target element contains the class
+      // we are interested in, because we aren't interested in
+      // clicks on whole area)
+      if (e.target.classList.contains('nav__link')){
+        const id = e.target.getAttribute('href');
+        document.querySelector(id).scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+})
 
 /////////////////////////////////////////////////
 /*
@@ -105,7 +151,7 @@ logo.classList.contains('c');//not 'includes' (contains only in DOM JS)
 
 logo.className = 'jonas';//DON"T USE THIS because it will rewrite all existing classes
 */
-
+/*
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
@@ -133,6 +179,7 @@ btnScrollTo.addEventListener('click', function (e){
   //new way to scroll
   section1.scrollIntoView({behavior: 'smooth'});
 })
+ */
 /*
 const h1 = document.querySelector('h1');
 
@@ -151,7 +198,7 @@ h1.addEventListener('mouseenter', alertH1);
 //   alert('onmouseenter: great! you are reading a heading');
 // };
 */
-
+/*
 //rgb (255, 255, 255)
 const randomInt = (min, max) =>
     Math.floor(Math.random() * (max-min+1) + min);
@@ -175,5 +222,5 @@ document.querySelector('.nav').addEventListener('click',
       this.style.backgroundColor = randomColor();
       console.log('nav', e.target, e.currentTarget);
     });
-
+*/
 
