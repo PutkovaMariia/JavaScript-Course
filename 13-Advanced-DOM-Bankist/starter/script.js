@@ -7,18 +7,23 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+const nav = document.querySelector('.nav');
 ///////////////////////////////////////
 // Modal window
 
 const openModal = function (e) {
-  e.preventDefault();
-  modal.classList.remove('hidden');
-  overlay.classList.remove('hidden');
+    e.preventDefault();
+    modal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
 };
 
 const closeModal = function () {
-  modal.classList.add('hidden');
-  overlay.classList.add('hidden');
+    modal.classList.add('hidden');
+    overlay.classList.add('hidden');
 };
 
 btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
@@ -27,16 +32,16 @@ btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
 document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-    closeModal();
-  }
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+    }
 });
 
 ///////////////////////////
 //button scrolling
-btnScrollTo.addEventListener('click', function (e){
-  const s1coords = section1.getBoundingClientRect();
-  section1.scrollIntoView({behavior: 'smooth'});
+btnScrollTo.addEventListener('click', function (e) {
+    const s1coords = section1.getBoundingClientRect();
+    section1.scrollIntoView({behavior: 'smooth'});
 })
 
 //////////////////////////////
@@ -62,20 +67,65 @@ btnScrollTo.addEventListener('click', function (e){
 // function to the parent element of all the elements we are interested in
 //than we determined where the click event came from
 document.querySelector('.nav__links')
-    .addEventListener('click', function (e){
-      e.preventDefault();
+    .addEventListener('click', function (e) {
+        e.preventDefault();
 
-      //matching strategy (if the target element contains the class
-      // we are interested in, because we aren't interested in
-      // clicks on whole area)
-      if (e.target.classList.contains('nav__link')){
-        const id = e.target.getAttribute('href');
-        document.querySelector(id).scrollIntoView({
-          behavior: 'smooth'
-        });
-      }
+        //matching strategy (if the target element contains the class
+        // we are interested in, because we aren't interested in
+        // clicks on whole area)
+        if (e.target.classList.contains('nav__link')) {
+            const id = e.target.getAttribute('href');
+            document.querySelector(id).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    })
+
+//tab component
+
+tabsContainer.addEventListener('click', function (e) {
+    const clicked = e.target.closest('.operations__tab');
+
+    //guard clause
+    if (!clicked) return;
+
+    //remove active classes
+    tabs.forEach(t => t.classList.remove('operations__tab--active'));
+    tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+    //activate tab
+    clicked.classList.add('operations__tab--active');
+
+    //activate content area
+    document
+        .querySelector(`.operations__content--${clicked.dataset.tab}`)
+        .classList.add('operations__content--active');
 })
 
+//menu fade animation
+
+const handleHover = function (e) {
+    if (e.target.classList.contains('nav__link')) {
+        const link = e.target;
+        const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+        const logo = link.closest('.nav').querySelector('img');
+
+        siblings.forEach(el => {
+            if (el !== link) el.style.opacity = this;
+        });
+        logo.style.opacity = this;
+    }
+}
+
+// nav.addEventListener('mouseover', function (e) {
+//     handleHover(e, 0.5);
+// });
+
+//passing argument into handler
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+/////////////////////////////////////////////////
 /////////////////////////////////////////////////
 /*
 //selecting elements
@@ -255,4 +305,8 @@ console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach(function (el){
   if (el !== h1) el.style.transform = 'scale(0.5)';
 })
- */
+*/
+
+
+
+
