@@ -486,7 +486,12 @@ console.log(h1.parentElement.children);
   if (el !== h1) el.style.transform = 'scale(0.5)';
 })
 */
-
-
-
-
+/*
+document
+    .addEventListener('DOMContentLoaded', function (e){
+        console.log('html parsed and dom tree built!');
+});
+window.addEventListener('load', function (e){
+    console.log('page fully loaded');
+});
+*/
