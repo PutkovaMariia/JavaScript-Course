@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 //basics of constructor functions
 const Person = function (firstName, birthYear){
     //console.log(this);//Person {}
@@ -27,6 +27,12 @@ console.log('-------------', poi);//------------- Person { firstName: undefined,
 console.log(roman);//Person { firstName: 'Roman', birthYear: 1992 }
 
 console.log(mariia instanceof Person);//true
+
+Person.hey = function (){
+    console.log(`hey there👋`);
+    console.log(this);
+};
+Person.hey();
 
 //prototypes
 //(each and every function in JS automatically has
@@ -61,7 +67,7 @@ Array.prototype.unique = function (){
 };
 
 console.log(arr.unique());//[ 1, 2, 3, 5, 6, 8 ]
-*/
+
 
 //class expression
 //const PersonCL = class{}
@@ -74,6 +80,7 @@ class PersonCL {
     }
 
     //methods will be added to the prototype property (but not in the constructor)
+    //instance methods
     calcAge(){
         console.log(2023- this.birthYear);
     }
@@ -95,6 +102,12 @@ class PersonCL {
     get fullName(){
         return this._fullName;
     }
+
+    //static method
+    static hey(){
+        console.log(`hey there👋`);
+        console.log(this);
+    }
 }
 const masha = new PersonCL('Masha Putkova', 1994);
 console.log(masha);//PersonCL { fullName: 'Masha Putkova', birthYear: 1994 }
@@ -111,6 +124,8 @@ console.log(masha.age);//29
 //3. classes are executed in strict mode
 
 const roma = new PersonCL('Roman Putkov', 1992);
+
+PersonCL.hey();
 
 const account = {
     owner: 'Masha',
