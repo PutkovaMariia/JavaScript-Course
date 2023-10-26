@@ -68,8 +68,8 @@ console.log(arr.unique());//[ 1, 2, 3, 5, 6, 8 ]
 
 //class declaration
 class PersonCL {
-    constructor(firstName, birthYear) {
-        this.firstName = firstName;
+    constructor(fullName, birthYear) {
+        this.fullName = fullName;
         this.birthYear = birthYear;
     }
 
@@ -77,16 +77,53 @@ class PersonCL {
     calcAge(){
         console.log(2023- this.birthYear);
     }
+
+    get age(){
+        return 2023-this.birthYear;
+    }
+
+    //set a property that is already exists
+    set fullName(name){
+        console.log(name);
+        if (name.includes(' ')){
+            this._fullName = name;
+        } else {
+            console.log(`${name} is not a full name`)
+        }
+    }
+
+    get fullName(){
+        return this._fullName;
+    }
 }
-const masha = new PersonCL('Masha', 1994);
-console.log(masha);//PersonCL { firstName: 'Masha', birthYear: 1994 }
+const masha = new PersonCL('Masha Putkova', 1994);
+console.log(masha);//PersonCL { fullName: 'Masha Putkova', birthYear: 1994 }
 masha.calcAge();//29
 
 PersonCL.prototype.greet = function (){
-    console.log(`hey ${this.firstName}`)
+    console.log(`hey ${this.fullName}`)
 };
-masha.greet();//hey Masha
+masha.greet();//hey Masha Putkova
+console.log(masha.age);//29
 
 //1. classes are not hoisted (not going up)
 //2. classes are first-class citizens
 //3. classes are executed in strict mode
+
+const roma = new PersonCL('Roman Putkov', 1992);
+
+const account = {
+    owner: 'Masha',
+    movements: [200,300,800],
+
+    get latest(){
+        return this.movements.slice(-1).pop();
+    },
+
+    set latest(mov){
+        this.movements.push(mov);
+    }
+};
+console.log(account.latest);//800
+account.latest = 450;
+console.log(account.movements);//[ 200, 300, 800, 450 ]
