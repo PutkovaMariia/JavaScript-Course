@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 //basics of constructor functions
 const Person = function (firstName, birthYear){
     //console.log(this);//Person {}
@@ -142,3 +142,25 @@ const account = {
 console.log(account.latest);//800
 account.latest = 450;
 console.log(account.movements);//[ 200, 300, 800, 450 ]
+ */
+
+const PersonProto = {
+    calcAge() {
+        console.log(2023 - this.birthYear);
+    },
+
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+};
+//this will return new object that is linked to the prototype that we pass in ()
+//with Object.create we can set the prototype of objects manually to any object that we want (but this is the least used way)
+const steven = Object.create(PersonProto);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge();//21
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 1979);
+sarah.calcAge();//44
