@@ -143,7 +143,7 @@ console.log(account.latest);//800
 account.latest = 450;
 console.log(account.movements);//[ 200, 300, 800, 450 ]
  */
-
+/*
 const PersonProto = {
     calcAge() {
         console.log(2023 - this.birthYear);
@@ -164,3 +164,38 @@ steven.calcAge();//21
 const sarah = Object.create(PersonProto);
 sarah.init('Sarah', 1979);
 sarah.calcAge();//44
+*/
+////////////////////////////////
+//inheritance between 'classes': constructor functions
+const Person = function (firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function (){
+    console.log(2023 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course){
+    Person.call(this, firstName, birthYear);
+    this.course = course;
+}
+
+//linking prototypes
+Student.prototype = Object.create(Person.prototype);
+
+Student.prototype.introduce = function (){
+    console.log(`my name is ${this.firstName} and I study ${this.course}`)
+}
+
+const mike = new Student('Mike', 1991, 'computer science');
+mike.introduce();//my name is Mike and I study computer science
+mike.calcAge();//32
+
+console.log(mike instanceof Student);//true
+console.log(mike instanceof Person);//true
+console.log(mike instanceof Object);//true
+
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);//function Student(firstName, birthYear, course)
+//but without line 199 it will be function Person(firstName, birthYear) which is incorrect
