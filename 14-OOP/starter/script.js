@@ -202,6 +202,7 @@ console.dir(Student.prototype.constructor);//function Student(firstName, birthYe
 //but without line 199 it will be function Person(firstName, birthYear) which is incorrect
 */
 ////////////////////////////////
+/*
 //inheritance between 'classes': ES6 classes
 
 class PersonCL {
@@ -261,3 +262,34 @@ class StudentCL extends PersonCL {
 const martha = new StudentCL('Martha Jones', 1992, 'computer science');
 martha.introduce();
 martha.calcAge();
+ */
+////////////////////////////////
+//inheritance between 'classes': Object.create
+
+const PersonProto = {
+    calcAge() {
+        console.log(2023 - this.birthYear);
+    },
+
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+};
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course){
+    PersonProto.init.call(this, firstName, birthYear);
+    this.course = course;
+};
+
+StudentProto.introduce = function (){
+    console.log(`my name is ${this.firstName} and I study ${this.course}`)
+}
+
+const jay = Object.create(StudentProto);
+jay.init('Jay', 1997, 'math');
+jay.introduce();
+jay.calcAge();
+
