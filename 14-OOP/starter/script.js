@@ -300,27 +300,31 @@ class Account{
         this.owner = owner;
         this.currency = currency;
         this.pin = pin;
-        this.movements = [];
+        //protected property
+        this._movements = [];
         this.local = navigator.language;
 
         console.log(`thanks for opening account, ${owner}`);
     }
 
     //public interface
+    getMovements(){
+        return this._movements;
+    }
     deposit(val){
-        this.movements.push(val);
+        this._movements.push(val);
     }
 
     withdraw(val){
         this.deposit(-val);
     }
 
-    approveLoan(val){
+    _approveLoan(val){
         return true;
     }
 
     requestLoan (val){
-        if (this.approveLoan(val)){
+        if (this._approveLoan(val)){
             this.deposit(val);
             console.log('loan approved');
         }
