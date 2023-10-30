@@ -295,39 +295,56 @@ jay.introduce();
 jay.calcAge();
 */
 
+//1.public fields
+//2.private fields
+//3.public methods
+//4.private methods
+//there is also the static version
+
 class Account{
+    //1.public fields(instances)
+    locale = navigator.language;
+
+    //2.private fields(instances)
+    #movements = [];
+    #pin;
+
     constructor(owner, currency, pin) {
         this.owner = owner;
         this.currency = currency;
-        this.pin = pin;
+        this.#pin = pin;
         //protected property
-        this._movements = [];
-        this.local = navigator.language;
+        // this._movements = [];
+        // this.local = navigator.language;
 
         console.log(`thanks for opening account, ${owner}`);
     }
 
+    //3.public methods
     //public interface
     getMovements(){
-        return this._movements;
+        return this.#movements;
     }
     deposit(val){
-        this._movements.push(val);
+        this.#movements.push(val);
     }
 
     withdraw(val){
         this.deposit(-val);
     }
 
-    _approveLoan(val){
-        return true;
-    }
-
     requestLoan (val){
+        // if (this.#approveLoan(val)){
         if (this._approveLoan(val)){
             this.deposit(val);
             console.log('loan approved');
         }
+    }
+
+    //4.private methods
+    // #approveLoan(val){
+    _approveLoan(val){
+        return true;
     }
 }
 
@@ -338,4 +355,4 @@ acc1.deposit(250);
 acc1.withdraw(150);
 acc1.requestLoan(1000);
 
-
+// console.log(acc1.#movements);
