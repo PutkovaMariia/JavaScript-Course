@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 //basics of constructor functions
 const Person = function (firstName, birthYear){
     //console.log(this);//Person {}
@@ -142,7 +142,7 @@ const account = {
 console.log(account.latest);//800
 account.latest = 450;
 console.log(account.movements);//[ 200, 300, 800, 450 ]
- */
+
 /*
 const PersonProto = {
     calcAge() {
@@ -202,46 +202,46 @@ console.dir(Student.prototype.constructor);//function Student(firstName, birthYe
 //but without line 199 it will be function Person(firstName, birthYear) which is incorrect
 */
 ////////////////////////////////
-/*
+
 //inheritance between 'classes': ES6 classes
 
-class PersonCL {
-    constructor(fullName, birthYear) {
-        this.fullName = fullName;
-        this.birthYear = birthYear;
-    }
-
-    //instance methods
-    calcAge() {
-        console.log(2023 - this.birthYear);
-    }
-
-    greet() {
-        console.log(`hey ${this.fullName}`)
-    }
-
-    get age() {
-        return 2023 - this.birthYear;
-    }
-
-    set fullName(name) {
-        console.log(name);
-        if (name.includes(' ')) {
-            this._fullName = name;
-        } else {
-            console.log(`${name} is not a full name`)
-        }
-    }
-
-    get fullName() {
-        return this._fullName;
-    }
-
-    //static method
-    static hey() {
-        console.log(`hey there👋`);
-    }
-}
+// class PersonCL {
+//     constructor(fullName, birthYear) {
+//         this.fullName = fullName;
+//         this.birthYear = birthYear;
+//     }
+//
+//     //instance methods
+//     calcAge() {
+//         console.log(2023 - this.birthYear);
+//     }
+//
+//     greet() {
+//         console.log(`hey ${this.fullName}`)
+//     }
+//
+//     get age() {
+//         return 2023 - this.birthYear;
+//     }
+//
+//     set fullName(name) {
+//         console.log(name);
+//         if (name.includes(' ')) {
+//             this._fullName = name;
+//         } else {
+//             console.log(`${name} is not a full name`)
+//         }
+//     }
+//
+//     get fullName() {
+//         return this._fullName;
+//     }
+//
+//     //static method
+//     static hey() {
+//         console.log(`hey there👋`);
+//     }
+// }
 
 class StudentCL extends PersonCL {
     constructor(fullName, birthYear, course) {
@@ -260,9 +260,10 @@ class StudentCL extends PersonCL {
 }
 
 const martha = new StudentCL('Martha Jones', 1992, 'computer science');
-martha.introduce();
-martha.calcAge();
- */
+// martha.introduce();
+// martha.calcAge();
+console.log(martha)
+
 ////////////////////////////////
 /*
 //inheritance between 'classes': Object.create
@@ -308,7 +309,7 @@ class Account{
     //2.private fields(instances)
     #movements = [];
     #pin;
-
+    private test = "teste";
     constructor(owner, currency, pin) {
         this.owner = owner;
         this.currency = currency;
@@ -357,7 +358,7 @@ console.log(acc1);
 acc1.deposit(250);
 acc1.withdraw(150);
 acc1.requestLoan(1000);
-
+console.log('-------------------------------', acc1.test);
 // console.log(acc1.#movements);
 
 //chaining methods (we need to write in every method 'return this')

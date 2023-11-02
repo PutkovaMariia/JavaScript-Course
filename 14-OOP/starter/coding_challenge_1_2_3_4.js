@@ -22,6 +22,8 @@ bmw.brake();
 mercedes.accelerate();
 mercedes.brake();
 
+////////////////////
+
 class CarCl{
     constructor(make, speed) {
         this.make = make;
@@ -83,3 +85,34 @@ console.log(tesla);
 
 EV.prototype.constructor = EV;
 console.dir(EV.prototype.constructor);
+
+//////////////////
+
+class EVCl extends CarCl{
+    #charge;
+    constructor(make, speed, charge) {
+        super(make, speed);
+        this.#charge = charge;
+    }
+
+    chargeBattery(chargeTo){
+        this.#charge = chargeTo;
+        return this;
+    }
+
+    accelerate(){
+        this.speed += 20;
+        this.#charge--;
+        console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${this.#charge}%`);
+        return this;
+    }
+
+    brake(){
+        this.speed -= 5;
+        console.log(`Wow! ${this.make} is going at ${this.speed} km/h`);
+    }
+}
+const rivian = new EVCl('Rivian', 120, 23);
+rivian.chargeBattery(9).accelerate().chargeBattery(90).accelerate();
+rivian.brake();
+console.log(rivian.speedUS);
