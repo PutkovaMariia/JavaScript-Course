@@ -2,7 +2,26 @@
 
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
-
+const renderError = function (msg) {
+    countriesContainer.insertAdjacentText('beforeend', msg);
+    // countriesContainer.style.opacity = 1;
+};
+const renderCountry = function (data, className = '') {
+    const html = `
+          <article class="country ${className}">
+          <img class="country__img" src="${data.flag}" />
+          <div class="country__data">
+            <h3 class="country__name">${data.name}</h3>
+            <h4 class="country__region">${data.region}</h4>
+            <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
+            <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+            <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
+          </div>
+        </article>
+        `;
+    countriesContainer.insertAdjacentHTML('beforeend', html);
+    // countriesContainer.style.opacity = 1;
+};
 ///////////////////////////////////////
 /*
 const getCountryData = function (country) {
@@ -35,23 +54,6 @@ getCountryData('ukraine');
 getCountryData('poland');
 getCountryData('germany');
 */
-
-const renderCountry = function (data, className = '') {
-    const html = `
-          <article class="country ${className}">
-          <img class="country__img" src="${data.flag}" />
-          <div class="country__data">
-            <h3 class="country__name">${data.name}</h3>
-            <h4 class="country__region">${data.region}</h4>
-            <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
-            <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
-            <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
-          </div>
-        </article>
-        `;
-    countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = 1;
-};
 
 /*
 const getCountryAndNeighbour = function (country) {
@@ -115,7 +117,8 @@ getCountryAndNeighbour('ukraine');
 const getCountryData = function (country) {
     //country 1
     fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
-        .then(response => response.json())//at all promises we can call `then` method, callback function inside `then` will be executed as soon as the promise is fulfilled (result is available)
+        .then(response => response.json()) //at all promises we can call `then` method, callback function inside `then` will be executed as soon as the promise is fulfilled (result is available)
+        //err => alert(err))//catching the error
         .then(data => {
             renderCountry(data[0]);
             //const neighbour = data[0].borders?.[0];
@@ -127,6 +130,17 @@ const getCountryData = function (country) {
             return fetch(`https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`);
         })
         .then(response => response.json())
-        .then(data => renderCountry(data, 'neighbour'));
+        .then(data => renderCountry(data, 'neighbour'))
+        .catch(err => {//instead of catching the error in each place we can call `catch` ones
+            console.error(`${err} is caught💥💥💥`);
+            renderError(`something went wrong 💔 ${err.message}`)
+        })
+        .finally(() => {//works always, not depends on is the `then` of `catch`
+            countriesContainer.style.opacity = 1;
+        })
 };
-getCountryData('ukraine');
+btn.addEventListener('click', function () {
+    getCountryData('ukraine');
+});
+
+getCountryData('dfghjk');//something went wrong 💔 data is undefined
