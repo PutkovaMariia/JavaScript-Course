@@ -112,9 +112,21 @@ getCountryAndNeighbour('ukraine');
 //     });
 // };
 
-const getCountryData = function (country){
+const getCountryData = function (country) {
+    //country 1
     fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
         .then(response => response.json())//at all promises we can call `then` method, callback function inside `then` will be executed as soon as the promise is fulfilled (result is available)
-        .then(data => renderCountry(data[0]));
+        .then(data => {
+            renderCountry(data[0]);
+            //const neighbour = data[0].borders?.[0];
+            const neighbour = data[0].borders[2];
+
+            if (!neighbour) return;
+
+            //country 2
+            return fetch(`https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`);
+        })
+        .then(response => response.json())
+        .then(data => renderCountry(data, 'neighbour'));
 };
 getCountryData('ukraine');
