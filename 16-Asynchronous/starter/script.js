@@ -20,7 +20,7 @@ const renderCountry = function (data, className = '') {
         </article>
         `;
     countriesContainer.insertAdjacentHTML('beforeend', html);
-    // countriesContainer.style.opacity = 1;
+    countriesContainer.style.opacity = 1;
 };
 ///////////////////////////////////////
 /*
@@ -160,7 +160,7 @@ const getJSON = function (url, errorMsg = 'something went wrong') {
     //             countriesContainer.style.opacity = 1;
     //         })
     // };
-
+/*
 const getCountryData = function (country) {
     //country 1
     getJSON(`https://countries-api-836d.onrender.com/countries/name/${country}`, 'country not found')
@@ -189,3 +189,29 @@ btn.addEventListener('click', function () {
     });
 
 //getCountryData('dfghjk');
+*/
+///////////////////////////////////////////////
+//coding challenge 1
+///////////////////////////////////////////////
+const whereAmI = function (lat, lng) {
+    fetch(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=668908444357391448987x101983`)
+        .then(res => {
+            if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+            return res.json();
+        })
+        .then(data => {
+            console.log(data);
+            console.log(`You are in ${data.city}, ${data.country}`);
+
+            return fetch(`https://countries-api-836d.onrender.com/countries/name/${data.country}`);
+        })
+        .then(res => {
+            if (!res.ok) throw new Error(`Country not found (${res.status})`);
+
+            return res.json();
+        })
+        .then(data => renderCountry(data[0]))
+        .catch(err => console.error(`${err.message} 💥`));
+};
+whereAmI(52.508, 13.381);
+///////////////////////////////////////////////
