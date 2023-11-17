@@ -114,22 +114,66 @@ getCountryAndNeighbour('ukraine');
 //     });
 // };
 
+const getJSON = function (url, errorMsg = 'something went wrong') {
+    return fetch(url).then(response => {
+        if (!response.ok)
+            throw new Error(`${errorMsg} ${response.status}`);
+        return response.json();
+    });
+    };
+
+    // const getCountryData = function (country) {
+    //     //country 1
+    //     fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
+    //         .then(response => {
+    //
+    //             if (!response.ok)
+    //                 throw new Error(`country not found ${response.status}`);
+    //
+    //             return response.json();
+    //         }) //at all promises we can call `then` method, callback function inside `then` will be executed as soon as the promise is fulfilled (result is available)
+    //         //err => alert(err))//catching the error
+    //         .then(data => {
+    //             renderCountry(data[0]);
+    //             //const neighbour = data[0].borders?.[0];
+    //             //const neighbour = data[0].borders[2];
+    //             const neighbour = 'dfghjk';
+    //
+    //             if (!neighbour) return;
+    //
+    //             //country 2
+    //             return fetch(`https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`);
+    //         })
+    //         .then(response => {
+    //
+    //             if (!response.ok)
+    //                 throw new Error(`country not found ${response.status}`);
+    //
+    //             return response.json();
+    //         })
+    //         .then(data => renderCountry(data, 'neighbour'))
+    //         .catch(err => {//instead of catching the error in each place we can call `catch` ones
+    //             console.error(`${err} is caught💥💥💥`);
+    //             renderError(`something went wrong 💔 ${err.message}`)
+    //         })
+    //         .finally(() => {//works always, not depends on is the `then` of `catch`
+    //             countriesContainer.style.opacity = 1;
+    //         })
+    // };
+
 const getCountryData = function (country) {
     //country 1
-    fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
-        .then(response => response.json()) //at all promises we can call `then` method, callback function inside `then` will be executed as soon as the promise is fulfilled (result is available)
-        //err => alert(err))//catching the error
+    getJSON(`https://countries-api-836d.onrender.com/countries/name/${country}`, 'country not found')
         .then(data => {
             renderCountry(data[0]);
             //const neighbour = data[0].borders?.[0];
             const neighbour = data[0].borders[2];
 
-            if (!neighbour) return;
+            if (!neighbour) throw new Error('no neighbour found');
 
             //country 2
-            return fetch(`https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`);
+            return getJSON(`https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`, 'country not found');
         })
-        .then(response => response.json())
         .then(data => renderCountry(data, 'neighbour'))
         .catch(err => {//instead of catching the error in each place we can call `catch` ones
             console.error(`${err} is caught💥💥💥`);
@@ -139,8 +183,9 @@ const getCountryData = function (country) {
             countriesContainer.style.opacity = 1;
         })
 };
-btn.addEventListener('click', function () {
-    getCountryData('ukraine');
-});
 
-getCountryData('dfghjk');//something went wrong 💔 data is undefined
+btn.addEventListener('click', function () {
+        getCountryData('ukraine');
+    });
+
+//getCountryData('dfghjk');
