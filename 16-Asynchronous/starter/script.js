@@ -217,7 +217,7 @@ const whereAmI = function (lat, lng) {
 whereAmI(52.508, 13.381);
  */
 ///////////////////////////////////////////////
-
+/*
 console.log('test start');
 setTimeout(() => console.log('0 sec timer'), 0);
 Promise.resolve('resolved promise 1').then(res =>
@@ -232,7 +232,34 @@ console.log('test end');
 // resolved promise 1
 // resolved promise 2
 // 0 sec timer
+*/
 
+const lotteryPromise = new Promise(function (resolve, reject) {
+    console.log('lottery draw is happening');
+    setTimeout(function (){
+    if (Math.random() >= 0.5){
+        resolve('you win');
+    } else{
+        reject(new Error('you lost your money'));
+    }
+}, 2000);
+});
+lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
 
+//promisifying setTimeout
+const wait = function (seconds){
+    return new Promise(function (resolve){
+        setTimeout(resolve, seconds * 1000);
+    });
+};
+wait(2).then(() => {
+    console.log('i waited 2 second');
+    return wait(1);
+}).then(() => console.log('i waited for 1 ore second'));
+
+////////
+
+Promise.resolve('res').then(x => console.log(x));
+Promise.reject('rej').catch(x => console.error(x));
 
 
