@@ -120,47 +120,47 @@ const getJSON = function (url, errorMsg = 'something went wrong') {
             throw new Error(`${errorMsg} ${response.status}`);
         return response.json();
     });
-    };
+};
 
-    // const getCountryData = function (country) {
-    //     //country 1
-    //     fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
-    //         .then(response => {
-    //
-    //             if (!response.ok)
-    //                 throw new Error(`country not found ${response.status}`);
-    //
-    //             return response.json();
-    //         }) //at all promises we can call `then` method, callback function inside `then` will be executed as soon as the promise is fulfilled (result is available)
-    //         //err => alert(err))//catching the error
-    //         .then(data => {
-    //             renderCountry(data[0]);
-    //             //const neighbour = data[0].borders?.[0];
-    //             //const neighbour = data[0].borders[2];
-    //             const neighbour = 'dfghjk';
-    //
-    //             if (!neighbour) return;
-    //
-    //             //country 2
-    //             return fetch(`https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`);
-    //         })
-    //         .then(response => {
-    //
-    //             if (!response.ok)
-    //                 throw new Error(`country not found ${response.status}`);
-    //
-    //             return response.json();
-    //         })
-    //         .then(data => renderCountry(data, 'neighbour'))
-    //         .catch(err => {//instead of catching the error in each place we can call `catch` ones
-    //             console.error(`${err} is caught💥💥💥`);
-    //             renderError(`something went wrong 💔 ${err.message}`)
-    //         })
-    //         .finally(() => {//works always, not depends on is the `then` of `catch`
-    //             countriesContainer.style.opacity = 1;
-    //         })
-    // };
-/*
+// const getCountryData = function (country) {
+//     //country 1
+//     fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
+//         .then(response => {
+//
+//             if (!response.ok)
+//                 throw new Error(`country not found ${response.status}`);
+//
+//             return response.json();
+//         }) //at all promises we can call `then` method, callback function inside `then` will be executed as soon as the promise is fulfilled (result is available)
+//         //err => alert(err))//catching the error
+//         .then(data => {
+//             renderCountry(data[0]);
+//             //const neighbour = data[0].borders?.[0];
+//             //const neighbour = data[0].borders[2];
+//             const neighbour = 'dfghjk';
+//
+//             if (!neighbour) return;
+//
+//             //country 2
+//             return fetch(`https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`);
+//         })
+//         .then(response => {
+//
+//             if (!response.ok)
+//                 throw new Error(`country not found ${response.status}`);
+//
+//             return response.json();
+//         })
+//         .then(data => renderCountry(data, 'neighbour'))
+//         .catch(err => {//instead of catching the error in each place we can call `catch` ones
+//             console.error(`${err} is caught💥💥💥`);
+//             renderError(`something went wrong 💔 ${err.message}`)
+//         })
+//         .finally(() => {//works always, not depends on is the `then` of `catch`
+//             countriesContainer.style.opacity = 1;
+//         })
+// };
+
 const getCountryData = function (country) {
     //country 1
     getJSON(`https://countries-api-836d.onrender.com/countries/name/${country}`, 'country not found')
@@ -185,14 +185,15 @@ const getCountryData = function (country) {
 };
 
 btn.addEventListener('click', function () {
-        getCountryData('ukraine');
-    });
+    getCountryData('ukraine');
+});
 
 //getCountryData('dfghjk');
-*/
+
 ///////////////////////////////////////////////
 //coding challenge 1
 ///////////////////////////////////////////////
+/*
 const whereAmI = function (lat, lng) {
     fetch(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=668908444357391448987x101983`)
         .then(res => {
@@ -214,4 +215,24 @@ const whereAmI = function (lat, lng) {
         .catch(err => console.error(`${err.message} 💥`));
 };
 whereAmI(52.508, 13.381);
+ */
 ///////////////////////////////////////////////
+
+console.log('test start');
+setTimeout(() => console.log('0 sec timer'), 0);
+Promise.resolve('resolved promise 1').then(res =>
+    console.log(res));//microtasks have priority over regular callback functions
+Promise.resolve('resolved promise 2').then(res =>{
+    for (let i=0; i<1234567890; i++){}
+    console.log(res);
+});
+console.log('test end');
+//test start
+// test end
+// resolved promise 1
+// resolved promise 2
+// 0 sec timer
+
+
+
+
