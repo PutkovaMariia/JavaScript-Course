@@ -263,16 +263,6 @@ Promise.resolve('res').then(x => console.log(x));
 Promise.reject('rej').catch(x => console.error(x));
 */
 
-const getPosition = function (){
-    return new Promise(function (resolve, reject){
-        // navigator.geolocation
-        //     .getCurrentPosition
-        //     (position => resolve(position),
-        //         err => reject(err));
-        navigator.geolocation.getCurrentPosition(resolve, reject);//this is the same as the previous lines
-    });
-};
-//getPosition().then(pos => console.log(pos));
 /*
 const whereAmI = function () {
     getPosition().then(pos => {
@@ -301,3 +291,33 @@ const whereAmI = function () {
 
 btn.addEventListener('click', whereAmI);
 */
+
+const getPosition = function () {
+    return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+};
+
+// fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
+//     .then(res => console.log(res))
+
+const whereAmI = async function (country) {
+    //geolocation
+    const pos = await getPosition();
+    const {latitude: lat, longitude: lng} = pos.coords;
+
+    //reverse geocoding
+    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=668908444357391448987x101983`);
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo);
+
+    //country data
+    const res = await fetch(`https://countries-api-836d.onrender.com/countries/name/${dataGeo.country}`);
+    const data = await res.json();
+    console.log(data);
+    renderCountry(data[0]);
+};
+whereAmI();
+console.log('first');
+
+
