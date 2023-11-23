@@ -302,22 +302,36 @@ const getPosition = function () {
 //     .then(res => console.log(res))
 
 const whereAmI = async function (country) {
-    //geolocation
-    const pos = await getPosition();
-    const {latitude: lat, longitude: lng} = pos.coords;
+    try {    //geolocation
+        const pos = await getPosition();
+        const {latitude: lat, longitude: lng} = pos.coords;
 
-    //reverse geocoding
-    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=668908444357391448987x101983`);
-    const dataGeo = await resGeo.json();
-    console.log(dataGeo);
+        //reverse geocoding
+        const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=668908444357391448987x101983`);
+        if (!resGeo.ok) throw new Error('problem getting location data');
+        const dataGeo = await resGeo.json();
+        console.log(dataGeo);
 
-    //country data
-    const res = await fetch(`https://countries-api-836d.onrender.com/countries/name/${dataGeo.country}`);
-    const data = await res.json();
-    console.log(data);
-    renderCountry(data[0]);
+        //country data
+        const res = await fetch(`https://countries-api-836d.onrender.com/countries/name/${dataGeo.country}`);
+        if (!res.ok) throw new Error('problem getting country data');
+        const data = await res.json();
+        console.log(data);
+        renderCountry(data[0]);
+    } catch (err){
+        console.error(`${err}💥💥💥`);
+        renderError(`💥💥💥 ${err.message}`)
+    }
 };
 whereAmI();
 console.log('first');
+
+// try {
+//     let y = 1;
+//     const x = 2;
+//     x = 3;
+// } catch (err) {
+//     alert(err.message);
+// }
 
 
