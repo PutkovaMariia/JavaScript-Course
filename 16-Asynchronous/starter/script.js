@@ -353,7 +353,7 @@ console.log('1. will get location');
 //     alert(err.message);
 // }
 */
-
+/*
 const get3Countries = async function (c1, c2, c3) {
     try {
         // const [data1] = await getJSON(`https://countries-api-836d.onrender.com/countries/name/${c1}`);
@@ -361,6 +361,7 @@ const get3Countries = async function (c1, c2, c3) {
         // const [data3] = await getJSON(`https://countries-api-836d.onrender.com/countries/name/${c3}`);
         //console.log([data1.capital, data2.capital, data3.capital]);
 
+//Promise.all (returns only if all promises were fulfilled)
         const data = await Promise.all([getJSON(`https://countries-api-836d.onrender.com/countries/name/${c1}`),
             getJSON(`https://countries-api-836d.onrender.com/countries/name/${c2}`),
             getJSON(`https://countries-api-836d.onrender.com/countries/name/${c3}`)]);
@@ -370,4 +371,48 @@ const get3Countries = async function (c1, c2, c3) {
     }
 };
 get3Countries('canada', 'tanzania', 'france');
+*/
 
+//Promise.race (we get only 1 result which is the fastest, no matter is it fulfilled or rejected)
+(async function () {
+    const res = await Promise.race([
+        getJSON(`https://countries-api-836d.onrender.com/countries/name/italy`),
+        getJSON(`https://countries-api-836d.onrender.com/countries/name/germany`),
+        getJSON(`https://countries-api-836d.onrender.com/countries/name/spain`)
+    ]);
+    console.log(res[0]);
+})();
+
+const timeout = function (sec) {
+    return new Promise(function (_, reject) {
+        setTimeout(function () {
+            reject(new Error('request took too long'));
+        }, sec * 1000);
+    });
+};
+
+//if timeout happens first - both will be rejected
+Promise.race([
+    getJSON(`https://countries-api-836d.onrender.com/countries/name/latvia`),
+    timeout(1)
+])
+    .then(res => console.log(res[0]))
+    .catch(err => console.error(err));
+
+//Promise.allSettled (returns all the results of all promises)
+Promise.allSettled([
+    Promise.resolve('success'),
+    Promise.reject('error'),
+    Promise.resolve('another success')
+])
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
+
+//Promise.any (returns the first fulfilled promise)
+Promise.any([
+    Promise.resolve('success'),
+    Promise.reject('error'),
+    Promise.resolve('another success')
+])
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
