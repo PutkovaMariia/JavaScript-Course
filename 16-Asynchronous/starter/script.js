@@ -291,7 +291,7 @@ const whereAmI = function () {
 
 btn.addEventListener('click', whereAmI);
 */
-
+/*
 const getPosition = function () {
     return new Promise(function (resolve, reject) {
         navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -352,5 +352,22 @@ console.log('1. will get location');
 // } catch (err) {
 //     alert(err.message);
 // }
+*/
 
+const get3Countries = async function (c1, c2, c3) {
+    try {
+        // const [data1] = await getJSON(`https://countries-api-836d.onrender.com/countries/name/${c1}`);
+        // const [data2] = await getJSON(`https://countries-api-836d.onrender.com/countries/name/${c2}`);
+        // const [data3] = await getJSON(`https://countries-api-836d.onrender.com/countries/name/${c3}`);
+        //console.log([data1.capital, data2.capital, data3.capital]);
+
+        const data = await Promise.all([getJSON(`https://countries-api-836d.onrender.com/countries/name/${c1}`),
+            getJSON(`https://countries-api-836d.onrender.com/countries/name/${c2}`),
+            getJSON(`https://countries-api-836d.onrender.com/countries/name/${c3}`)]);
+        console.log(data.map(d => d[0].capital));
+    } catch (err) {
+        console.error(err);
+    }
+};
+get3Countries('canada', 'tanzania', 'france');
 
