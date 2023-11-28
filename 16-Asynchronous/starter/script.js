@@ -310,21 +310,40 @@ const whereAmI = async function (country) {
         const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=668908444357391448987x101983`);
         if (!resGeo.ok) throw new Error('problem getting location data');
         const dataGeo = await resGeo.json();
-        console.log(dataGeo);
 
         //country data
         const res = await fetch(`https://countries-api-836d.onrender.com/countries/name/${dataGeo.country}`);
         if (!res.ok) throw new Error('problem getting country data');
         const data = await res.json();
-        console.log(data);
         renderCountry(data[0]);
-    } catch (err){
+
+        return `you are in ${dataGeo.city}, ${dataGeo.country}`;
+    } catch (err) {
         console.error(`${err}💥💥💥`);
-        renderError(`💥💥💥 ${err.message}`)
+        renderError(`💥💥💥 ${err.message}`);
+
+        //reject promise returned from async function
+        throw err;
     }
 };
-whereAmI();
-console.log('first');
+console.log('1. will get location');
+// const city = whereAmI();
+// console.log(city);
+
+// whereAmI()
+//     .then(city => console.log(`2. ${city}`))
+//     .catch(err => console.error(`2. ${err.message} !!!`))
+//     .finally(() => console.log('3. finished getting location'));
+
+(async function () {
+    try {
+        const city = await whereAmI();
+        console.log(`2. ${city}`);
+    } catch (err) {
+        console.error(`2. ${err.message} !!!`);
+    }
+    console.log('3. finished getting location');
+})();
 
 // try {
 //     let y = 1;
