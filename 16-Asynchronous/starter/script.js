@@ -372,7 +372,7 @@ const get3Countries = async function (c1, c2, c3) {
 };
 get3Countries('canada', 'tanzania', 'france');
 */
-
+/*
 //Promise.race (we get only 1 result which is the fastest, no matter is it fulfilled or rejected)
 (async function () {
     const res = await Promise.race([
@@ -416,3 +416,4 @@ Promise.any([
 ])
     .then(res => console.log(res))
     .catch(err => console.error(err));
+*/
