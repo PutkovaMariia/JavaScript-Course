@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 const renderError = function (msg) {
@@ -22,6 +22,7 @@ const renderCountry = function (data, className = '') {
     countriesContainer.insertAdjacentHTML('beforeend', html);
     countriesContainer.style.opacity = 1;
 };
+*/
 ///////////////////////////////////////
 /*
 const getCountryData = function (country) {
@@ -372,6 +373,7 @@ const get3Countries = async function (c1, c2, c3) {
 };
 get3Countries('canada', 'tanzania', 'france');
 */
+
 /*
 //Promise.race (we get only 1 result which is the fastest, no matter is it fulfilled or rejected)
 (async function () {
@@ -417,3 +419,140 @@ Promise.any([
     .then(res => console.log(res))
     .catch(err => console.error(err));
 */
+/*
+function CreateWoman(name) {
+    this.name = name;
+}
+CreateWoman.prototype.talk = function (){
+    return `My name is ${this.name}`
+}
+function createMan(name) {
+    return{
+        name,
+        talk(){
+            return `My name is ${name}`;
+        }
+    }
+}
+const me = new CreateWoman('Mariia');
+const he = createMan('Roman');
+// console.log(me.talk());
+// console.log(he.talk());
+// console.log(me);
+// console.log(he);
+//console.log(CreateWoman.prototype === me.__proto__)
+createMan.talk = function (){
+    return `Ola, ${this.name}`
+}
+CreateWoman.prototype.talk = function (){
+    return `Ola, ${this.name}`
+}
+const bob = createMan('Bob');
+const alice = new CreateWoman('Alice');
+console.log(he.talk());
+console.log(bob.talk());
+console.log(me.talk());
+console.log(alice.talk());
+*/
+/*
+function talk(){
+    return `I am ${this.name}`
+}
+const me = {
+    name: 'Mariia'
+}
+const you = {
+    name: 'Roman',
+    talk
+}
+const meTalk = talk.bind(me);
+console.log(meTalk())
+*/
+/*
+function makeCounter() {
+    let count = 0;
+
+    return function() {
+        return count++;
+    };
+ }
+
+let counter = makeCounter();
+let counter2 = makeCounter();
+
+console.log( counter() );
+console.log( counter() );
+console.log( counter() );
+console.log( counter2() );
+console.log( counter2() );
+console.log('----------')
+console.log( makeCounter()() );
+console.log( makeCounter()() );
+console.log( makeCounter()() );
+ */
+/*
+function incAge(age){
+    age += 133
+    console.log(age)
+}
+const myAge = 20;
+incAge(myAge);
+console.log(myAge);
+ */
+/*
+let a = 1;
+let b = a;
+console.log(a)
+console.log(b)
+a = {name: 'Masha'};
+console.log(a)
+console.log(b)
+console.log('------------')
+console.log('------------')
+console.log('------------')
+let c = {name: 'Roma'};
+let d = c;
+console.log(c)
+console.log(d)
+c.name = 'Roman';
+console.log(c)
+console.log(d)
+ */
+/*
+let arr = [5,15,20,25,30];
+const newArr = arr.map(a => a *2);
+arr.forEach(el => console.log(el *2));
+console.log(arr);
+console.log(newArr)
+*/
+document.body.innerHTML = ''
+
+const form = document.createElement('form')
+document.body.appendChild(form)
+
+const input = document.createElement('input')
+input.placeholder = 'to do'
+form.appendChild(input)
+
+const button = document.createElement('button')
+button.innerText = 'add'
+button.role = 'add'
+form.appendChild(button)
+
+const ul = document.createElement('ul')
+document.body.appendChild(ul)
+
+
+form.onsubmit = (event) => {
+    event.preventDefault()
+    const li = document.createElement('li')
+    ul.appendChild(li)
+    li.innerText = input.value
+    li.onclick = () =>{
+        li.remove()
+    }
+    input.value = ''
+}
+document.body.style.padding = '16px'
+input.style.marginRight = '8px'
+ul.style.padding = '20px'
