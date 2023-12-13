@@ -1,3 +1,4 @@
+/*
 //importing module
 //import {addToCart, totalPrice as price, tq} from './shoppingCart.js';
 // addToCart('bread', 5);
@@ -41,4 +42,34 @@ lastPost.then(last => console.log(last));
 const lastPost2 = await getLastPost();
 console.log(lastPost2);
 
+
+import {cart} from "./shoppingCart";
+*/
+
+const ShoppingCart2 = (function (){
+    const cart = [];
+    const shoppingCost = 10;
+    const totalPrise = 237;
+    const totalQuantity = 23;
+
+    const addToCart = function (product, quantity) {
+        cart.push({product, quantity});
+        console.log(`${quantity} ${product} added to the cart`);
+    };
+
+    const orderStock = function (product, quantity) {
+        console.log(`${quantity} ${product} ordered from supplier`);
+    };
+
+    return {
+        addToCart,
+        cart,
+        totalPrise,
+        totalQuantity,
+    }
+})();
+
+ShoppingCart2.addToCart('apple', 2);
+ShoppingCart2.addToCart('pizza', 4);
+console.log(ShoppingCart2);
 
