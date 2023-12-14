@@ -1,10 +1,10 @@
-/*
+
 //importing module
 //import {addToCart, totalPrice as price, tq} from './shoppingCart.js';
 // addToCart('bread', 5);
 // console.log(price, tq);
 
-console.log('importing module');
+//console.log('importing module');
 
 // import * as ShoppingCart from './shoppingCart.js';
 // ShoppingCart.addToCart('bread', 5);
@@ -17,7 +17,7 @@ add('chicken', 1);
 add('tomato', 20);
 
 console.log(cart);
-
+/*
 // //top level await we can use only in modules
 // console.log('start fetching');
 // const res = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -74,7 +74,8 @@ ShoppingCart2.addToCart('pizza', 4);
 console.log(ShoppingCart2);
 */
 
-import cloneDeep from '../node_modules/lodash-es/cloneDeep.js';
+//import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from 'lodash-es';
 
 const state = {
     cart: [
@@ -91,5 +92,7 @@ state.user.loggedIn = false;
 console.log(stateClone);
 console.log(stateDeepClone);
 
-
+if (module.hot){
+    module.hot.accept();
+}
 
